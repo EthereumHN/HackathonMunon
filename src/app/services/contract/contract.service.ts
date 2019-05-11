@@ -108,6 +108,25 @@ export class ContractService {
     });
   }
 
+  joinHackathonService() {
+    const that = this;
+
+    return new Promise((resolve, reject) => {
+      const hackathonMunonContract = contract(hackathonMunon);
+      hackathonMunonContract.setProvider(that.web3Provider);
+      hackathonMunonContract.deployed().then((instance) => {
+          return instance.join();
+        }).then((status) => {
+          if (status) {
+            return resolve({status: true});
+          }
+        }).catch((error) => {
+          console.log(error);
+          return reject('Error joining hackathon');
+        });
+    });
+  }
+
   failure(message: string) {
     const snackbarRef = this.snackbar.open(message);
     snackbarRef.afterDismiss().subscribe(reason => {});

@@ -8,9 +8,10 @@ import { UiRoute } from './ui.routes';
 import { RouterModule } from '@angular/router';
 import { AccountComponent } from './account/account.component';
 import { HomeComponent } from './home/home.component';
+import { JoinComponent } from './join/join.component';
 
 @NgModule({
-  declarations: [TopNavComponent, TransactionComponent, AccountComponent, HomeComponent],
+  declarations: [TopNavComponent, TransactionComponent, AccountComponent, HomeComponent, JoinComponent],
   imports: [
     AppMaterialModule,
     CommonModule,
