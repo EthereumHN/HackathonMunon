@@ -1,5 +1,5 @@
-const Payment = artifacts.require("Payment");
+const HackathonMunon = artifacts.require("HackathonMunon");
 
 module.exports = function(deployer) {
-  deployer.deploy(Payment);
+  deployer.deploy(HackathonMunon);
 };

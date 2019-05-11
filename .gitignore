@@ -3,7 +3,7 @@
 NOTES.md
 functions/*
 build/contracts/Migrations.json
-build/contracts/Payment.json
+build/contracts/HackathonMunon.json
 
 # compiled output
 /dist

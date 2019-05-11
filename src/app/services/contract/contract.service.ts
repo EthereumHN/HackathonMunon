@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 
 declare let require: any;
 const Web3 = require('web3');
-const tokenAbi = require('../../../../build/contracts/Payment.json');
+const hackathonMunon = require('../../../../build/contracts/HackathonMunon.json');
 
 declare let window: any;
 
@@ -86,10 +86,10 @@ export class ContractService {
     const that = this;
 
     return new Promise((resolve, reject) => {
-      const paymentContract = contract(tokenAbi);
-      paymentContract.setProvider(that.web3Provider);
+      const hackathonMunonContract = contract(hackathonMunon);
+      hackathonMunonContract.setProvider(that.web3Provider);
 
-      paymentContract.deployed().then((instance) => {
+      hackathonMunonContract.deployed().then((instance) => {
           return instance.nuevaTransaccion(
             destinyAccount,
             {
