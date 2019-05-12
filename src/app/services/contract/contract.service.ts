@@ -22,14 +22,20 @@ export class ContractService {
   constructor(private snackbar: MdcSnackbar) {
     if (typeof window.web3 !== 'undefined') {
       this.web3Provider = window.web3.currentProvider;
+      console.log('gatos');
     } else {
-      console.log('Un parece que no estas conectado');
-      Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
-      this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/ca2b12f732ef47fcb6b76223b39f8cf3'));
-      // Cambiarlo con la private key propia de infura.io
+      this.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+      // lo cambias por tu numero de puerto en linux es http://localhost:8545
+   // } else {
+   //   borrar el localhost y usar este si se va a usar en la red de infura
+   //   console.log('Un parece que no estas conectado');
+   //   Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
+   //   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/ca2b12f732ef47fcb6b76223b39f8cf3'));
+   // Cambiarlo con la private key propia de infura.io
     }
 
     window.web3 = new Web3(this.web3Provider);
+    console.log('llamando');
   }
 
   seeAccountInfo() {
@@ -117,7 +123,7 @@ export class ContractService {
       hackathonMunonContract.deployed().then((instance) => {
           return instance.join(
             {
-              from: "originAccount",
+              from: 'originAccount',
               value: window.web3.utils.toWei('1', 'ether')
             }
           );
