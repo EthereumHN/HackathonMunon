@@ -108,14 +108,19 @@ export class ContractService {
     });
   }
 
-  joinHackathonService() {
+  joinHackathonService(originAccount) {
     const that = this;
 
     return new Promise((resolve, reject) => {
       const hackathonMunonContract = contract(hackathonMunon);
       hackathonMunonContract.setProvider(that.web3Provider);
       hackathonMunonContract.deployed().then((instance) => {
-          return instance.join();
+          return instance.join(
+            {
+              from: "originAccount",
+              value: window.web3.utils.toWei('1', 'ether')
+            }
+          );
         }).then((status) => {
           if (status) {
             return resolve({status: true});

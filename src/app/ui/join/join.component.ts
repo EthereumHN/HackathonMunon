@@ -73,7 +73,7 @@ export class JoinComponent implements OnInit {
   }
 
   joinHackathon(e) {
-    this.contract.joinHackathonService().then((r) => {
+    this.contract.joinHackathonService(this.direction).then((r) => {
       this.contract.succes();
     }).catch((e) => {
       this.contract.failure('Join failed');

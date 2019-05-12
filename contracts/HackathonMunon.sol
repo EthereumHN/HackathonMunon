@@ -53,11 +53,12 @@ contract HackathonMunon
   // Public variables
   Library.Participant[] public participants;
   mapping(address  => mapping(uint8  => Library.Points)) public reviews;
+  uint entry_fee = 10 finney;
 
   // Modifiers
   modifier paysEntryFee()
   {
-    require(msg.value == 10 wei);
+    require(msg.value == entry_fee);
     _;
   }
   
