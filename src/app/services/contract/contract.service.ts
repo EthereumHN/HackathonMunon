@@ -123,8 +123,8 @@ export class ContractService {
       hackathonMunonContract.deployed().then((instance) => {
           return instance.join(
             {
-              from: 'originAccount',
-              value: window.web3.utils.toWei('1', 'ether')
+              from: originAccount,
+              value: window.web3.utils.toWei('0.00001', 'ether')
             }
           );
         }).then((status) => {
