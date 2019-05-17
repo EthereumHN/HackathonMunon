@@ -23,14 +23,18 @@ library Library
 contract HackathonMunon
 {
   // Public methods
-  function createEvent() public
+  function createEvent() public returns(uint)
   {
-    events.push(Library.Event(uint (events.length) ));
+    uint event_id = uint (events.length) + 1;
+    events.push(Library.Event( event_id ));
+    return event_id;
   }
 
-  function join(uint event_id) public payable paysEntryFee hasNotJoined(event_id)
+  function join(uint event_id) public payable paysEntryFee hasNotJoined(event_id) returns(uint)
   {
-    event_participants[event_id].push(Library.Participant(uint (event_participants[event_id].length), msg.sender));
+    uint participant_id = uint (event_participants[event_id].length) + 1;
+    event_participants[event_id].push(Library.Participant( participant_id, msg.sender ));
+    return participant_id;
   }
 
   function rate(uint event_id, uint participant_id, uint8 points) public hasJoined(event_id) participantExists(event_id, participant_id) pointsAreValid(points)

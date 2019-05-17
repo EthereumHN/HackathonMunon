@@ -24,8 +24,8 @@ export class ContractService {
       this.web3Provider = window.web3.currentProvider;
       console.log(this.web3Provider);
     } else {
-      this.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:8545');
-      // lo cambias por tu numero de puerto en linux es http://localhost:8545
+      this.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545');
+      // lo cambias por tu numero de puerto en linux es http://localhost:7545
    // } else {
    //   borrar el localhost y usar este si se va a usar en la red de infura
    //   console.log('Un parece que no estas conectado');
@@ -224,6 +224,11 @@ export class ContractService {
 
   succes() {
     const snackbarRef = this.snackbar.open('Transaction complete successfuly');
+    snackbarRef.afterDismiss().subscribe(reason => {});
+  }
+
+  printSnackbarMessage(message: string) {
+    const snackbarRef = this.snackbar.open(message);
     snackbarRef.afterDismiss().subscribe(reason => {});
   }
 }
