@@ -3,6 +3,10 @@ pragma solidity 0.5.0;
 library Library
 {
   // Structs
+  struct Event
+  {
+    uint id;
+  }
 
   struct Participant
   {
@@ -19,6 +23,11 @@ library Library
 contract HackathonMunon
 {
   // Public methods
+  function createEvent() public
+  {
+    events.push(Library.Event(uint (events.length) ));
+  }
+
   function join() public payable paysEntryFee hasNotJoined
   {
     participants.push(Library.Participant(uint8 (participants.length), msg.sender));
@@ -51,6 +60,7 @@ contract HackathonMunon
   }
 
   // Public variables
+  Library.Event[] public events;
   Library.Participant[] public participants;
   mapping(address  => mapping(uint8  => Library.Points)) public reviews;
   uint entry_fee = 10 finney;
