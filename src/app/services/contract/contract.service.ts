@@ -167,6 +167,56 @@ export class ContractService {
     });
   }
 
+  rateHackathonService(originAccount, event_id, participant_id, points) {
+    const that = this;
+
+    return new Promise((resolve, reject) => {
+      const hackathonMunonContract = contract(hackathonMunon);
+      hackathonMunonContract.setProvider(that.web3Provider);
+      hackathonMunonContract.deployed().then((instance) => {
+          return instance.rate(
+            event_id,
+            participant_id,
+            points,
+            {
+              from: originAccount,
+            }
+          );
+        }).then((status) => {
+          if (status) {
+            return resolve({status: true});
+          }
+        }).catch((error) => {
+          console.log(error);
+          return reject('Error when trying to rate');
+        });
+    });
+  }
+
+  cashoutHackathonService(originAccount, event_id) {
+    const that = this;
+
+    return new Promise((resolve, reject) => {
+      const hackathonMunonContract = contract(hackathonMunon);
+      hackathonMunonContract.setProvider(that.web3Provider);
+      hackathonMunonContract.deployed().then((instance) => {
+          return instance.cashOut(
+            event_id,
+            {
+              from: originAccount
+            }
+          );
+        }).then((status) => {
+          if (status) {
+            return resolve({status: true});
+          }
+        }).catch((error) => {
+          console.log(error);
+          return reject('Error cashing out from hackathon');
+        });
+    });
+  }
+
   failure(message: string) {
     const snackbarRef = this.snackbar.open(message);
     snackbarRef.afterDismiss().subscribe(reason => {});

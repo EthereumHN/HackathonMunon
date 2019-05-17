@@ -38,25 +38,34 @@ contract HackathonMunon
     reviews[msg.sender][participant_id] = Library.Points(points);
   }
 
-  function getParticipantPoints(uint event_id, uint participant_id) public view returns(uint)
+  function cashOut(uint event_id) public hasJoined(event_id) returns(uint)
   {
-    uint points_sum = 0;
+    uint total_points = 0;
+    uint my_points = 0;
+    uint my_id = getParticipantId(event_id);
 
+    // Calculate each participant total points
     for (uint i = 0; i < event_participants[event_id].length; i++)
     {
       address reviewer_addr = event_participants[event_id][i].addr;
       for (uint j = 0; j < event_participants[event_id].length; j++)
       {
         uint reviewed_id = event_participants[event_id][j].id;
-        if(reviewed_id == participant_id)
-        {
-          Library.Points memory points = reviews[reviewer_addr][reviewed_id];
-          points_sum += points.value;
-        }
+        uint points = reviews[reviewer_addr][reviewed_id].value;
+        total_points += points;
+        if(my_id == reviewed_id)
+          my_points += points;
       }
     }
 
-    return points_sum;
+    // Calculate reward
+    uint total_pot = entry_fee * event_participants[event_id].length;
+    uint my_percentage = my_points / total_points;
+    uint my_reward = total_pot * my_percentage;
+
+    msg.sender.transfer(my_reward);
+
+    return my_reward;
   }
 
   // Public variables
@@ -127,5 +136,17 @@ contract HackathonMunon
     }
 
     return exists;
+  }
+
+  function getParticipantId(uint event_id) internal view returns (uint)
+  {
+    for (uint i = 0; i < event_participants[event_id].length; i++)
+    {
+      if(event_participants[event_id][i].addr == msg.sender)
+      {
+        return event_participants[event_id][i].id;
+      }
+    }
+    return 0;
   }
 }
