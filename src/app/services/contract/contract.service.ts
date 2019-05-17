@@ -14,7 +14,7 @@ declare let window: any;
 })
 
 export class ContractService {
-  private web3Provider: null;
+  private web3Provider;
   private contracts: {};
   private accounts: string[];
   public accountsObservable = new Subject<string[]>();
@@ -22,9 +22,9 @@ export class ContractService {
   constructor(private snackbar: MdcSnackbar) {
     if (typeof window.web3 !== 'undefined') {
       this.web3Provider = window.web3.currentProvider;
-      console.log('gatos');
+      console.log(this.web3Provider);
     } else {
-      this.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
+      this.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:8545');
       // lo cambias por tu numero de puerto en linux es http://localhost:8545
    // } else {
    //   borrar el localhost y usar este si se va a usar en la red de infura
@@ -35,7 +35,13 @@ export class ContractService {
     }
 
     window.web3 = new Web3(this.web3Provider);
-    console.log('llamando');
+    try{
+      this.web3Provider.enable();
+      console.log('web3 enabled');
+    }catch(error)
+    {
+      console.log('could not enable web3');
+    }
   }
 
   seeAccountInfo() {
@@ -114,6 +120,28 @@ export class ContractService {
     });
   }
 
+  createHackathonService(originAccount) {
+    const that = this;
+
+    return new Promise((resolve, reject) => {
+      const hackathonMunonContract = contract(hackathonMunon);
+      hackathonMunonContract.setProvider(that.web3Provider);
+      hackathonMunonContract.deployed().then((instance) => {
+          return instance.createEvent(
+          {
+            from: originAccount,
+          });
+        }).then((status) => {
+          if (status) {
+            return resolve({status: true});
+          }
+        }).catch((error) => {
+          console.log(error);
+          return reject('Error creating hackathon');
+        });
+    });
+  }
+
   joinHackathonService(originAccount) {
     const that = this;
 
@@ -124,7 +152,7 @@ export class ContractService {
           return instance.join(
             {
               from: originAccount,
-              value: window.web3.utils.toWei('0.00001', 'ether')
+              value: window.web3.utils.toWei('10', 'finney')
             }
           );
         }).then((status) => {

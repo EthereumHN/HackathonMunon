@@ -9,9 +9,10 @@ import { RouterModule } from '@angular/router';
 import { AccountComponent } from './account/account.component';
 import { HomeComponent } from './home/home.component';
 import { JoinComponent } from './join/join.component';
+import { CreateComponent } from './create-event/create.component';
 
 @NgModule({
-  declarations: [TopNavComponent, TransactionComponent, AccountComponent, HomeComponent, JoinComponent],
+  declarations: [TopNavComponent, TransactionComponent, AccountComponent, HomeComponent, JoinComponent, CreateComponent],
   imports: [
     AppMaterialModule,
     CommonModule,
