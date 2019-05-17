@@ -10,7 +10,7 @@ library Library
 
   struct Participant
   {
-    uint8 id;
+    uint id;
     address addr;
   }
 
@@ -28,26 +28,26 @@ contract HackathonMunon
     events.push(Library.Event(uint (events.length) ));
   }
 
-  function join() public payable paysEntryFee hasNotJoined
+  function join(uint event_id) public payable paysEntryFee hasNotJoined(event_id)
   {
-    participants.push(Library.Participant(uint8 (participants.length), msg.sender));
+    event_participants[event_id].push(Library.Participant(uint (event_participants[event_id].length), msg.sender));
   }
 
-  function rate(uint8 participant_id, uint8 points) public hasJoined participantExists(participant_id) pointsAreValid(points)
+  function rate(uint event_id, uint participant_id, uint8 points) public hasJoined(event_id) participantExists(event_id, participant_id) pointsAreValid(points)
   {
     reviews[msg.sender][participant_id] = Library.Points(points);
   }
 
-  function getParticipantPoints(uint8 participant_id) public view returns(uint8)
+  function getParticipantPoints(uint event_id, uint participant_id) public view returns(uint)
   {
-    uint8 points_sum = 0;
+    uint points_sum = 0;
 
-    for (uint i = 0; i < participants.length; i++)
+    for (uint i = 0; i < event_participants[event_id].length; i++)
     {
-      address reviewer_addr = participants[i].addr;
-      for (uint j = 0; j < participants.length; j++)
+      address reviewer_addr = event_participants[event_id][i].addr;
+      for (uint j = 0; j < event_participants[event_id].length; j++)
       {
-        uint8 reviewed_id = participants[j].id;
+        uint reviewed_id = event_participants[event_id][j].id;
         if(reviewed_id == participant_id)
         {
           Library.Points memory points = reviews[reviewer_addr][reviewed_id];
@@ -61,8 +61,8 @@ contract HackathonMunon
 
   // Public variables
   Library.Event[] public events;
-  Library.Participant[] public participants;
-  mapping(address  => mapping(uint8  => Library.Points)) public reviews;
+  mapping(uint => Library.Participant[]) public event_participants;
+  mapping(address  => mapping(uint  => Library.Points)) public reviews;
   uint entry_fee = 10 finney;
 
   // Modifiers
@@ -72,21 +72,21 @@ contract HackathonMunon
     _;
   }
 
-  modifier hasNotJoined()
+  modifier hasNotJoined(uint event_id)
   {
-    require(checkIfParticipantAddressExists(msg.sender) == false);
+    require(checkIfParticipantAddressExists(event_id, msg.sender) == false);
     _;
   }
 
-  modifier hasJoined()
+  modifier hasJoined(uint event_id)
   {
-    require(checkIfParticipantAddressExists(msg.sender) == true);
+    require(checkIfParticipantAddressExists(event_id, msg.sender) == true);
     _;
   }
 
-  modifier participantExists(uint8 participant_id)
+  modifier participantExists(uint event_id, uint participant_id)
   {
-    require(checkIfParticipantIdExists(participant_id) == true);
+    require(checkIfParticipantIdExists(event_id, participant_id) == true);
     _;
   }
 
@@ -97,13 +97,13 @@ contract HackathonMunon
   }
 
   // Internal funcions
-  function checkIfParticipantAddressExists(address participant_addr) internal view returns (bool)
+  function checkIfParticipantAddressExists(uint event_id, address participant_addr) internal view returns (bool)
   {
     bool exists = false;
 
-    for (uint i = 0; i < participants.length; i++)
+    for (uint i = 0; i < event_participants[event_id].length; i++)
     {
-      if(participants[i].addr == participant_addr)
+      if(event_participants[event_id][i].addr == participant_addr)
       {
         exists = true;
         break;
@@ -113,13 +113,13 @@ contract HackathonMunon
     return exists;
   }
 
-  function checkIfParticipantIdExists(uint8 participant_id) internal view returns (bool)
+  function checkIfParticipantIdExists(uint event_id, uint participant_id) internal view returns (bool)
   {
     bool exists = false;
 
-    for (uint i = 0; i < participants.length; i++)
+    for (uint i = 0; i < event_participants[event_id].length; i++)
     {
-      if(participants[i].id == participant_id)
+      if(event_participants[event_id][i].id == participant_id)
       {
         exists = true;
         break;

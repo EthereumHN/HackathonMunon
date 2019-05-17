@@ -4,7 +4,7 @@ import { ContractService } from './../../services/contract/contract.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdcSnackbar } from '@angular-mdc/web';
 
-type JoinField = 'sendaddress' | 'amount';
+type JoinField = 'sendaddress' | 'event_id';
 type FormErrors = {[u in JoinField]: string};
 @Component({
   selector: 'app-join',
@@ -14,7 +14,7 @@ type FormErrors = {[u in JoinField]: string};
 export class JoinComponent implements OnInit {
   direction: string;
   address: string;
-  amount: string;
+  event_id: string;
   balance: string;
   success: boolean;
   joinDone: boolean;
@@ -22,7 +22,7 @@ export class JoinComponent implements OnInit {
   joinForm: FormGroup;
   formErrors: FormErrors = {
     sendaddress: '',
-    amount: '',
+    event_id: '',
   };
   validationMessages = {
    sendaddress: {
@@ -31,8 +31,8 @@ export class JoinComponent implements OnInit {
    minlength: 'a address must have much than 40 characters',
 
    },
-   amount: {
-     required: 'Need a amount to sent to address',
+   event_id: {
+     required: 'Need an event id to join',
      pattern: 'Only support numbers',
    },
   };
@@ -58,7 +58,7 @@ export class JoinComponent implements OnInit {
           Validators.minLength(42),
         ]
       ],
-      amount : ['', [
+      event_id : ['', [
           Validators.required,
           Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
         ]
@@ -73,7 +73,8 @@ export class JoinComponent implements OnInit {
   }
 
   joinHackathon(e) {
-    this.contract.joinHackathonService(this.direction).then((r) => {
+    this.event_id = this.joinForm.value.event_id;
+    this.contract.joinHackathonService(this.direction, this.event_id).then((r) => {
       this.contract.succes();
     }).catch((e) => {
       this.contract.failure('Join failed');
@@ -84,7 +85,7 @@ export class JoinComponent implements OnInit {
     if (!this.joinForm) { return; }
     const form = this.joinForm;
     for (const field in this.formErrors) {
-      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'amount')) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'event_id')) {
         this.formErrors[field] = '';
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {

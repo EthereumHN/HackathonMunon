@@ -142,7 +142,7 @@ export class ContractService {
     });
   }
 
-  joinHackathonService(originAccount) {
+  joinHackathonService(originAccount, event_id) {
     const that = this;
 
     return new Promise((resolve, reject) => {
@@ -150,6 +150,7 @@ export class ContractService {
       hackathonMunonContract.setProvider(that.web3Provider);
       hackathonMunonContract.deployed().then((instance) => {
           return instance.join(
+            event_id,
             {
               from: originAccount,
               value: window.web3.utils.toWei('10', 'finney')
