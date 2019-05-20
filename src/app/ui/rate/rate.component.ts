@@ -99,6 +99,7 @@ export class RateComponent implements OnInit {
     this.points = this.rateForm.value.points;
     this.contract.rateHackathonService(this.direction, this.event_id, this.participant_id, this.points).then((r) => {
       this.contract.succes();
+      console.log(r);
     }).catch((e) => {
       this.contract.failure('Rate failed');
     });

@@ -133,7 +133,7 @@ export class ContractService {
           });
         }).then((status) => {
           if (status) {
-            return resolve({status: true});
+            return resolve(status);
           }
         }).catch((error) => {
           console.log(error);
@@ -158,7 +158,7 @@ export class ContractService {
           );
         }).then((status) => {
           if (status) {
-            return resolve({status: true});
+            return resolve(status);
           }
         }).catch((error) => {
           console.log(error);
@@ -184,7 +184,7 @@ export class ContractService {
           );
         }).then((status) => {
           if (status) {
-            return resolve({status: true});
+            return resolve(status);
           }
         }).catch((error) => {
           console.log(error);
