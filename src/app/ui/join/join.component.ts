@@ -75,7 +75,7 @@ export class JoinComponent implements OnInit {
   joinHackathon(e) {
     this.event_id = this.joinForm.value.event_id;
     this.contract.joinHackathonService(this.direction, this.event_id).then((r) => {
-      var participant_id = 10;
+      var participant_id = r.logs[0].args.participant_id.words[0];
       this.contract.printSnackbarMessage("Success! Your participant id is: " + participant_id);
       console.log(r);
     }).catch((e) => {
