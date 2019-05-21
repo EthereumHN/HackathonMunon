@@ -33,6 +33,7 @@ contract HackathonMunon
   Event[] public events;
   mapping(uint => Participant[]) public event_participants;
   mapping(uint => mapping(address => Participant)) public event_participant;
+  mapping(uint => uint256) public total_event_points;
   uint entry_fee = 10 finney;
 
   // Modifiers
@@ -83,25 +84,27 @@ contract HackathonMunon
     emit Registration(event_id, participant_id, msg.sender);
   }
 
+  //TODO: Integer Underflow y Overflow
   //TODO: El que esta dando el rating puede dar votos infinitos, hay que limitar cuantas veces puede votar
-  //TODO: Replantear como funciona el rate y la formula del cashout
   function rate(
     uint event_id,
     address participant_addr,
     uint8 points
   ) public hasJoined(event_id) participantExists(event_id, participant_addr) pointsAreValid(points)
   {
-    event_participant[event_id][participant_addr].points += points;
+    event_participant[event_id][participant_addr].points += points; //Anteriormente solo esta remplazando los puntos.
+    total_event_points[event_id] += points;
   }
 
   //TODO: Integer Underflow y Overflow
+  //TODO: puedo cash out varias veces
   function cashOut(uint event_id) public hasJoined(event_id) returns(uint)
   {
-    uint total_points = 0;
-    uint my_points = 0;
+    uint total_points = total_event_points[event_id]; //TODO:actualizar el total points
+    uint my_points = event_participant[event_id][msg.sender].points;
 
     // Calculate reward
-    uint total_pot = entry_fee * event_participants[event_id].length;
+    uint total_pot = address(this).balance;
     uint my_percentage = my_points / total_points;
     uint my_reward = total_pot * my_percentage;
 
