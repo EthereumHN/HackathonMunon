@@ -2,22 +2,21 @@ pragma solidity ^0.5.0;
 
 contract HackathonMunon
 {
-
-   // Events
-  event EventCreation
+  // Events
+  event HackathonCreation
   (
-    uint event_id
+    uint hackathon_id
   );
 
   event Registration
   (
-    uint event_id,
+    uint hackathon_id,
     uint participant_id,
     address participant_addr
   );
 
   // Structs
-  struct Event
+  struct Hackathon
   {
     uint id;
   }
@@ -30,10 +29,12 @@ contract HackathonMunon
   }
 
   // Public variables
-  Event[] public events;
-  mapping(uint => Participant[]) public event_participants;
-  mapping(uint => mapping(address => Participant)) public event_participant;
-  mapping(uint => uint256) public total_event_points;
+  Hackathon[] public hackathons;
+  mapping(uint => mapping(address => Participant)) public hackathon_participants;
+  mapping(uint => mapping(address => mapping(address => uint))) public participant_ratings;
+  mapping(uint => uint) public hackathon_participant_count;
+  mapping(uint => mapping(address => bool)) public participant_has_cashed_out;
+  mapping(uint => uint256) public total_hackathon_points;
   uint entry_fee = 10 finney;
 
   // Modifiers
@@ -43,21 +44,21 @@ contract HackathonMunon
     _;
   }
 
-  modifier hasNotJoined(uint event_id)
+  modifier hasNotJoined(uint hackathon_id)
   {
-    require(event_participant[event_id][msg.sender].addr == address(0), "Participant has joined");
+    require(hackathon_participants[hackathon_id][msg.sender].addr == address(0), "Participant has joined");
     _;
   }
 
-  modifier hasJoined(uint event_id)
+  modifier hasJoined(uint hackathon_id)
   {
-    require(event_participant[event_id][msg.sender].addr != address(0), "Participant has not joined");
+    require(hackathon_participants[hackathon_id][msg.sender].addr != address(0), "Participant has not joined");
     _;
   }
 
-   modifier participantExists(uint event_id, address participant_addr)
+  modifier participantExists(uint hackathon_id, address participant_addr)
   {
-    require(event_participant[event_id][participant_addr].addr != address(0), "Participant has not joined");
+    require(hackathon_participants[hackathon_id][participant_addr].addr != address(0), "Participant has not joined");
     _;
   }
 
@@ -67,41 +68,47 @@ contract HackathonMunon
     _;
   }
 
-  // Public methods
-  function createEvent() public
+  modifier hasNotCashedOut(uint hackathon_id, address participant_addr)
   {
-    uint event_id = uint (events.length) + 1;
-    events.push(Event(event_id));
-    emit EventCreation(event_id);
+    require(!participant_has_cashed_out[hackathon_id][participant_addr], "Participant has already cashed out");
+    _;
   }
 
-  function join(uint event_id) public payable paysEntryFee hasNotJoined(event_id)
+  // Public methods
+  function createHackathon() public
   {
-    uint participant_id = uint (event_participants[event_id].length) + 1;
+    uint hackathon_id = uint (hackathons.length) + 1;
+    hackathons.push(Hackathon(hackathon_id));
+    emit HackathonCreation(hackathon_id);
+  }
+
+  function join(uint hackathon_id) public payable paysEntryFee hasNotJoined(hackathon_id)
+  {
+    hackathon_participant_count[hackathon_id] += 1;
+    uint participant_id = hackathon_participant_count[hackathon_id];
     Participant memory participant = Participant(participant_id, msg.sender, 0);
-    event_participants[event_id].push(participant);
-    event_participant[event_id][msg.sender] = participant;
-    emit Registration(event_id, participant_id, msg.sender);
+    hackathon_participants[hackathon_id][msg.sender] = participant;
+    emit Registration(hackathon_id, participant_id, msg.sender);
   }
 
   //TODO: Integer Underflow y Overflow
-  //TODO: El que esta dando el rating puede dar votos infinitos, hay que limitar cuantas veces puede votar
   function rate(
-    uint event_id,
+    uint hackathon_id,
     address participant_addr,
     uint8 points
-  ) public hasJoined(event_id) participantExists(event_id, participant_addr) pointsAreValid(points)
+  ) public hasJoined(hackathon_id) participantExists(hackathon_id, participant_addr) pointsAreValid(points)
   {
-    event_participant[event_id][participant_addr].points += points; //Anteriormente solo esta remplazando los puntos.
-    total_event_points[event_id] += points;
+    uint rating_stored = participant_ratings[hackathon_id][msg.sender][participant_addr];
+    hackathon_participants[hackathon_id][participant_addr].points += points - rating_stored;
+    total_hackathon_points[hackathon_id] += points - rating_stored;
+    participant_ratings[hackathon_id][msg.sender][participant_addr] = points;
   }
 
   //TODO: Integer Underflow y Overflow
-  //TODO: puedo cash out varias veces
-  function cashOut(uint event_id) public hasJoined(event_id) returns(uint)
+  function cashOut(uint hackathon_id) public hasJoined(hackathon_id) hasNotCashedOut(hackathon_id, msg.sender) returns(uint)
   {
-    uint total_points = total_event_points[event_id]; //TODO:actualizar el total points
-    uint my_points = event_participant[event_id][msg.sender].points;
+    uint total_points = total_hackathon_points[hackathon_id]; //TODO:actualizar el total points
+    uint my_points = hackathon_participants[hackathon_id][msg.sender].points;
 
     // Calculate reward
     uint total_pot = address(this).balance;
@@ -109,6 +116,8 @@ contract HackathonMunon
     uint my_reward = total_pot * my_percentage;
 
     msg.sender.transfer(my_reward);
+
+    participant_has_cashed_out[hackathon_id][msg.sender] = true;
 
     return my_reward;
   }
