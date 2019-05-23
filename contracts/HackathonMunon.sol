@@ -11,28 +11,30 @@ contract HackathonMunon
   event Registration
   (
     uint hackathon_id,
-    uint participant_id,
     address participant_addr
   );
 
   // Structs
   struct Hackathon
   {
-    uint id;
+    address host_addr;
+    HackathonState state;
   }
 
   struct Participant
   {
-    uint id;
     address addr;
-    uint8 points;
+    uint points;
   }
 
+  // Enums
+  enum HackathonState { RegistrationOpen, ReviewEnabled, Finished }
+
   // Public variables
-  Hackathon[] public hackathons;
-  mapping(uint => mapping(address => Participant)) public hackathon_participants;
-  mapping(uint => mapping(address => mapping(address => uint))) public participant_ratings;
-  mapping(uint => uint) public hackathon_participant_count;
+  mapping(uint => Hackathon) public hackathons; // Stores hackathons data
+  mapping(uint => mapping(address => Participant)) public hackathon_participants; // Stores participant data
+  mapping(uint => mapping(address => mapping(address => uint))) public participant_ratings; // Rating history, enables correcting ratings and prevents rating
+  uint hackathon_count; // Helps generating a new hackathon id
   mapping(uint => mapping(address => bool)) public participant_has_cashed_out;
   mapping(uint => uint256) public total_hackathon_points;
   uint entry_fee = 10 finney;
@@ -58,7 +60,7 @@ contract HackathonMunon
 
   modifier participantExists(uint hackathon_id, address participant_addr)
   {
-    require(hackathon_participants[hackathon_id][participant_addr].addr != address(0), "Participant has not joined");
+    require(hackathon_participants[hackathon_id][participant_addr].addr != address(0), "Participant does not exists");
     _;
   }
 
@@ -74,21 +76,43 @@ contract HackathonMunon
     _;
   }
 
+  modifier isRegistrationOpen(uint hackathon_id)
+  {
+    require(hackathons[hackathon_id].state == HackathonState.RegistrationOpen, "Hackathon registration is not open");
+    _;
+  }
+
+  modifier isReviewEnabled(uint hackathon_id)
+  {
+    require(hackathons[hackathon_id].state == HackathonState.ReviewEnabled, "Hackathon review is not enabled");
+    _;
+  }
+
+  modifier isFinished(uint hackathon_id)
+  {
+    require(hackathons[hackathon_id].state == HackathonState.Finished, "Hackathon is not finished");
+    _;
+  }
+
+  modifier isHackathonHost(uint hackathon_id)
+  {
+    require(hackathons[hackathon_id].host_addr == msg.sender, "You are not the hackathon host");
+    _;
+  }
+
   // Public methods
   function createHackathon() public
   {
-    uint hackathon_id = uint (hackathons.length) + 1;
-    hackathons.push(Hackathon(hackathon_id));
-    emit HackathonCreation(hackathon_id);
+    hackathon_count += 1;
+    hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen);
+    emit HackathonCreation(hackathon_count);
   }
 
-  function join(uint hackathon_id) public payable paysEntryFee hasNotJoined(hackathon_id)
+  function join(uint hackathon_id) public payable paysEntryFee hasNotJoined(hackathon_id) isRegistrationOpen(hackathon_id)
   {
-    hackathon_participant_count[hackathon_id] += 1;
-    uint participant_id = hackathon_participant_count[hackathon_id];
-    Participant memory participant = Participant(participant_id, msg.sender, 0);
+    Participant memory participant = Participant(msg.sender, 0);
     hackathon_participants[hackathon_id][msg.sender] = participant;
-    emit Registration(hackathon_id, participant_id, msg.sender);
+    emit Registration(hackathon_id, msg.sender);
   }
 
   //TODO: Integer Underflow y Overflow
@@ -96,7 +120,7 @@ contract HackathonMunon
     uint hackathon_id,
     address participant_addr,
     uint8 points
-  ) public hasJoined(hackathon_id) participantExists(hackathon_id, participant_addr) pointsAreValid(points)
+  ) public hasJoined(hackathon_id) participantExists(hackathon_id, participant_addr) pointsAreValid(points) isReviewEnabled(hackathon_id)
   {
     uint rating_stored = participant_ratings[hackathon_id][msg.sender][participant_addr];
     hackathon_participants[hackathon_id][participant_addr].points += points - rating_stored;
@@ -105,7 +129,7 @@ contract HackathonMunon
   }
 
   //TODO: Integer Underflow y Overflow
-  function cashOut(uint hackathon_id) public hasJoined(hackathon_id) hasNotCashedOut(hackathon_id, msg.sender) returns(uint)
+  function cashOut(uint hackathon_id) public hasJoined(hackathon_id) hasNotCashedOut(hackathon_id, msg.sender) isFinished(hackathon_id) returns(uint)
   {
     uint total_points = total_hackathon_points[hackathon_id]; //TODO:actualizar el total points
     uint my_points = hackathon_participants[hackathon_id][msg.sender].points;
@@ -120,5 +144,15 @@ contract HackathonMunon
     participant_has_cashed_out[hackathon_id][msg.sender] = true;
 
     return my_reward;
+  }
+
+  function enableHackathonReview(uint hackathon_id) public isHackathonHost(hackathon_id)
+  {
+    hackathons[hackathon_id].state = HackathonState.ReviewEnabled;
+  }
+
+  function finishHackathon(uint hackathon_id) public isHackathonHost(hackathon_id)
+  {
+    hackathons[hackathon_id].state = HackathonState.Finished;
   }
 }
