@@ -2,7 +2,7 @@
 
 _Hack, review and split the pot!_
 
-Hackathon Muñón: Dapp Edition is a decentralized event where creators gather to build, network and have a good time. Every participant is a judge and reviews their peers work to split a pot. The pot is created and distributed in form of Ether with the help of this Ethereum [smart contract](https://github.com/Turupawn/HackathonMunon/blob/master/contracts/HackathonMunon.sol) and Angular frontend.
+Hackathon Muñón: Dapp Edition is a decentralized event where creators gather to build, network and have a good time. Every participant is a judge and reviews their peers to split a pot. The pot is created and distributed in form of Ether with the help of this Ethereum [smart contract](https://github.com/Turupawn/HackathonMunon/blob/master/contracts/HackathonMunon.sol) and Angular frontend.
 
 For more information, visit the [wiki](https://github.com/Turupawn/HackathonMunon/wiki).
 

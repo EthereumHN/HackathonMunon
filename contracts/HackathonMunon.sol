@@ -14,6 +14,31 @@ contract HackathonMunon
     address participant_addr
   );
 
+  event RatingSubmited
+  (
+    uint hackathon_id,
+    address reviewer_addr,
+    address reviewed_addr,
+    uint8 points
+  );
+
+  event CashOut
+  (
+    uint hackathon_id,
+    address participant_addr,
+    uint reward
+  );
+
+  event HackathonReviewEnabled
+  (
+    uint hackathon_id
+  );
+
+  event HackathonFinished
+  (
+    uint hackathon_id
+  );
+
   // Structs
   struct Hackathon
   {
@@ -35,9 +60,9 @@ contract HackathonMunon
   mapping(uint => mapping(address => Participant)) public hackathon_participants; // Stores participant data
   mapping(uint => mapping(address => mapping(address => uint))) public participant_ratings; // Rating history, enables correcting ratings and prevents rating
   uint hackathon_count; // Helps generating a new hackathon id
-  mapping(uint => mapping(address => bool)) public participant_has_cashed_out;
-  mapping(uint => uint256) public total_hackathon_points;
-  uint entry_fee = 10 finney;
+  mapping(uint => mapping(address => bool)) public participant_has_cashed_out; // Helps preventing double cash out
+  mapping(uint => uint256) public total_hackathon_points; // Helps calculating pot splits
+  uint entry_fee = 10 finney; // Hackathon entry fee
 
   // Modifiers
   modifier paysEntryFee()
@@ -126,6 +151,7 @@ contract HackathonMunon
     hackathon_participants[hackathon_id][participant_addr].points += points - rating_stored;
     total_hackathon_points[hackathon_id] += points - rating_stored;
     participant_ratings[hackathon_id][msg.sender][participant_addr] = points;
+    emit RatingSubmited(hackathon_id, msg.sender, participant_addr, points);
   }
 
   //TODO: Integer Underflow y Overflow
@@ -143,16 +169,18 @@ contract HackathonMunon
 
     participant_has_cashed_out[hackathon_id][msg.sender] = true;
 
-    return my_reward;
+    emit CashOut(hackathon_id, msg.sender, my_reward);
   }
 
   function enableHackathonReview(uint hackathon_id) public isHackathonHost(hackathon_id)
   {
     hackathons[hackathon_id].state = HackathonState.ReviewEnabled;
+    emit HackathonReviewEnabled(hackathon_id);
   }
 
   function finishHackathon(uint hackathon_id) public isHackathonHost(hackathon_id)
   {
     hackathons[hackathon_id].state = HackathonState.Finished;
+    emit HackathonFinished(hackathon_id);
   }
 }
