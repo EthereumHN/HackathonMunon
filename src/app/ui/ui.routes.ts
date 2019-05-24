@@ -1,6 +1,6 @@
 import { AccountComponent } from './account/account.component';
 import { HomeComponent } from './home/home.component';
-import { CreateComponent } from './create-event/create.component';
+import { CreateComponent } from './create/create.component';
 import { JoinComponent } from './join/join.component';
 import { RateComponent } from './rate/rate.component';
 import { CashoutComponent } from './cashout/cashout.component';

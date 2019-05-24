@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { JoinComponent } from './join/join.component';
 import { CashoutComponent } from './cashout/cashout.component';
 import { RateComponent } from './rate/rate.component';
-import { CreateComponent } from './create-event/create.component';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
   declarations: [TopNavComponent, TransactionComponent, AccountComponent, HomeComponent, CreateComponent, JoinComponent, RateComponent, CashoutComponent],

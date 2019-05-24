@@ -127,7 +127,7 @@ export class ContractService {
       const hackathonMunonContract = contract(hackathonMunon);
       hackathonMunonContract.setProvider(that.web3Provider);
       hackathonMunonContract.deployed().then((instance) => {
-          return instance.createEvent(
+          return instance.createHackathon(
           {
             from: originAccount,
           });
