@@ -7,8 +7,8 @@ import { CashoutComponent } from './cashout/cashout.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { Routes } from '@angular/router';
 export const UiRoute: Routes = [
-  { path: '', component: TransactionComponent },
-  { path: 'home', component: HomeComponent},
+  { path: '', component: HomeComponent },
+  { path: 'transaction', component: TransactionComponent},
   { path: 'create', component: CreateComponent},
   { path: 'join', component: JoinComponent},
   { path: 'rate', component: RateComponent},

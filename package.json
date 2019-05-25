@@ -1,5 +1,5 @@
 {
-  "name": "angulartruffledapp",
+  "name": "hackathonmunon2019",
   "author": {
     "name": "@ng-es",
     "url": "https://medium.com/ngesyfirebase"
@@ -10,9 +10,12 @@
     },
     {
       "name": "@AbnerGarcia96"
+    },
+    {
+      "name": "@Turupawn"
     }
   ],
-  "version": "1.5.0",
+  "version": "1.7.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
