@@ -10,8 +10,11 @@
         <form [formGroup]="rateForm">
             <mdc-form-field fluid>
                 <mdc-text-field type="text" min=0 label="Event Id" outlined class="demo-text-field--outline" required id="event_id" formControlName="event_id"></mdc-text-field>
+                &nbsp;
                 <mdc-text-field type="text" min=0 label="Participant Id" outlined class="demo-text-field--outline" required id="participant_id" formControlName="participant_id"></mdc-text-field>
+                &nbsp;
                 <mdc-text-field type="text" min=0 label="Points" outlined class="demo-text-field--outline" required id="points" formControlName="points"></mdc-text-field>
+                &nbsp;
                 <mdc-helper-text persistent validation *ngIf="formErrors.amount"> {{ formErrors.amount }} </mdc-helper-text>
             </mdc-form-field>
         </form>
@@ -23,5 +26,4 @@
         &nbsp;
     </mdc-card>
 </div>
-  
-  
+
