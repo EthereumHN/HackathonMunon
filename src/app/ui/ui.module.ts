@@ -10,12 +10,13 @@ import { AccountComponent } from './account/account.component';
 import { HomeComponent } from './home/home.component';
 import { JoinComponent } from './join/join.component';
 import { EnableReviewComponent } from './enable-review/enable_review.component';
+import { FinishComponent } from './finish/finish.component';
 import { CashoutComponent } from './cashout/cashout.component';
 import { RateComponent } from './rate/rate.component';
 import { CreateComponent } from './create/create.component';
 
 @NgModule({
-  declarations: [TopNavComponent, TransactionComponent, AccountComponent, HomeComponent, CreateComponent, JoinComponent, RateComponent, CashoutComponent, EnableReviewComponent],
+  declarations: [TopNavComponent, TransactionComponent, AccountComponent, HomeComponent, CreateComponent, JoinComponent, RateComponent, CashoutComponent, EnableReviewComponent, FinishComponent],
   imports: [
     AppMaterialModule,
     CommonModule,
