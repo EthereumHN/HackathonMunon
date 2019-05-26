@@ -74,8 +74,8 @@ export class CreateComponent implements OnInit {
 
   createHackathon(e) {
     this.contract.createHackathonService(this.direction).then((r) => {
-//      let event_id = r.logs[0].args.event_id.words[0];
-//      this.contract.printSnackbarMessage('Success! Your event id is: ' + event_id);
+      let hackathon_id = r['logs'][0]['args']['hackathon_id']['words'][0];
+      this.contract.printSnackbarMessage('Success! Your hackathon id is: ' + hackathon_id);
       console.log(r);
     }).catch((e) => {
       this.contract.failure('Create failed');

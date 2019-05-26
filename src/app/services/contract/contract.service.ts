@@ -128,9 +128,11 @@ export class ContractService {
       hackathonMunonContract.setProvider(that.web3Provider);
       hackathonMunonContract.deployed().then((instance) => {
           return instance.createHackathon(
-          {
-            from: originAccount,
-          });
+            "",
+            "",
+            {
+              from: originAccount,
+            });
         }).then((status) => {
           if (status) {
             return resolve(status);
@@ -142,7 +144,7 @@ export class ContractService {
     });
   }
 
-  joinHackathonService(originAccount, event_id) {
+  joinHackathonService(originAccount, hackathon_id) {
     const that = this;
 
     return new Promise((resolve, reject) => {
@@ -150,7 +152,7 @@ export class ContractService {
       hackathonMunonContract.setProvider(that.web3Provider);
       hackathonMunonContract.deployed().then((instance) => {
           return instance.join(
-            event_id,
+            hackathon_id,
             {
               from: originAccount,
               value: window.web3.utils.toWei('10', 'finney')
@@ -167,7 +169,7 @@ export class ContractService {
     });
   }
 
-  rateHackathonService(originAccount, event_id, participant_id, points) {
+  rateHackathonService(originAccount, hackathon_id, participant_id, points) {
     const that = this;
 
     return new Promise((resolve, reject) => {
@@ -175,7 +177,7 @@ export class ContractService {
       hackathonMunonContract.setProvider(that.web3Provider);
       hackathonMunonContract.deployed().then((instance) => {
           return instance.rate(
-            event_id,
+            hackathon_id,
             participant_id,
             points,
             {
@@ -193,7 +195,7 @@ export class ContractService {
     });
   }
 
-  cashoutHackathonService(originAccount, event_id) {
+  cashoutHackathonService(originAccount, hackathon_id) {
     const that = this;
 
     return new Promise((resolve, reject) => {
@@ -201,7 +203,7 @@ export class ContractService {
       hackathonMunonContract.setProvider(that.web3Provider);
       hackathonMunonContract.deployed().then((instance) => {
           return instance.cashOut(
-            event_id,
+            hackathon_id,
             {
               from: originAccount
             }

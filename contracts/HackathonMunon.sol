@@ -16,9 +16,7 @@ contract HackathonMunon
   event Registration
   (
     uint256 hackathon_id,
-    address participant_addr,
-    string image_hash,
-    string nickname
+    address participant_addr
   );
 
   event RatingSubmited
@@ -60,8 +58,6 @@ contract HackathonMunon
   {
     address addr;
     uint256 points;
-    string image_hash;
-    string nickname;
   }
 
   // Enums
@@ -147,14 +143,12 @@ contract HackathonMunon
   }
 
   function join(
-    uint256 hackathon_id,
-    string memory image_hash,
-    string memory nickname
+    uint256 hackathon_id
   ) public payable paysEntryFee hasNotJoined(hackathon_id) isRegistrationOpen(hackathon_id)
   {
-    Participant memory participant = Participant(msg.sender, 0,image_hash, nickname);
+    Participant memory participant = Participant(msg.sender, 0);
     hackathon_participants[hackathon_id][msg.sender] = participant;
-    emit Registration(hackathon_id, msg.sender,image_hash, nickname);
+    emit Registration(hackathon_id, msg.sender);
   }
 
   function rate(

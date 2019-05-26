@@ -4,7 +4,7 @@ import { ContractService } from './../../services/contract/contract.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdcSnackbar } from '@angular-mdc/web';
 
-type CashoutField = 'sendaddress' | 'event_id';
+type CashoutField = 'sendaddress' | 'hackathon_id';
 type FormErrors = {[u in CashoutField]: string};
 @Component({
   selector: 'app-cashout',
@@ -14,7 +14,7 @@ type FormErrors = {[u in CashoutField]: string};
 export class CashoutComponent implements OnInit {
   direction: string;
   address: string;
-  event_id: string;
+  hackathon_id: string;
   balance: string;
   success: boolean;
   cashoutDone: boolean;
@@ -22,7 +22,7 @@ export class CashoutComponent implements OnInit {
   cashoutForm: FormGroup;
   formErrors: FormErrors = {
     sendaddress: '',
-    event_id: '',
+    hackathon_id: '',
   };
   validationMessages = {
    sendaddress: {
@@ -31,8 +31,8 @@ export class CashoutComponent implements OnInit {
    minlength: 'a address must have much than 40 characters',
 
    },
-   event_id: {
-     required: 'Need an event id to cashout',
+   hackathon_id: {
+     required: 'Need a hackathon id to cashout',
      pattern: 'Only support numbers',
    },
   };
@@ -58,7 +58,7 @@ export class CashoutComponent implements OnInit {
           Validators.minLength(42),
         ]
       ],
-      event_id : ['', [
+      hackathon_id : ['', [
           Validators.required,
           Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
         ]
@@ -73,8 +73,8 @@ export class CashoutComponent implements OnInit {
   }
 
   cashoutHackathon(e) {
-    this.event_id = this.cashoutForm.value.event_id;
-    this.contract.cashoutHackathonService(this.direction, this.event_id).then((r) => {
+    this.hackathon_id = this.cashoutForm.value.hackathon_id;
+    this.contract.cashoutHackathonService(this.direction, this.hackathon_id).then((r) => {
       this.contract.succes();
     }).catch((e) => {
       this.contract.failure('Cashout failed');
@@ -85,7 +85,7 @@ export class CashoutComponent implements OnInit {
     if (!this.cashoutForm) { return; }
     const form = this.cashoutForm;
     for (const field in this.formErrors) {
-      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'event_id')) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'hackathon_id')) {
         this.formErrors[field] = '';
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {

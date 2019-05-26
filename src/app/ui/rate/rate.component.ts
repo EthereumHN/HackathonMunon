@@ -4,7 +4,7 @@ import { ContractService } from './../../services/contract/contract.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdcSnackbar } from '@angular-mdc/web';
 
-type RateField = 'sendaddress' | 'event_id' | 'participant_id' | 'points';
+type RateField = 'sendaddress' | 'hackathon_id' | 'participant_id' | 'points';
 type FormErrors = {[u in RateField]: string};
 @Component({
   selector: 'app-rate',
@@ -14,7 +14,7 @@ type FormErrors = {[u in RateField]: string};
 export class RateComponent implements OnInit {
   direction: string;
   address: string;
-  event_id: string;
+  hackathon_id: string;
   participant_id: string;
   points: string;
   balance: string;
@@ -24,7 +24,7 @@ export class RateComponent implements OnInit {
   rateForm: FormGroup;
   formErrors: FormErrors = {
     sendaddress: '',
-    event_id: '',
+    hackathon_id: '',
     participant_id: '',
     points: '',
   };
@@ -34,8 +34,8 @@ export class RateComponent implements OnInit {
     pattern: 'that´s no looks like a valid address',
     minlength: 'a address must have much than 40 characters',
     },
-    event_id: {
-      required: 'Need an event id and stuff to rate',
+    hackathon_id: {
+      required: 'Need a hackathon id and stuff to rate',
       pattern: 'Only support numbers',
     },
     participant_id: {
@@ -69,7 +69,7 @@ export class RateComponent implements OnInit {
           Validators.minLength(42),
         ]
       ],
-      event_id : ['', [
+      hackathon_id : ['', [
           Validators.required,
           Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
         ]
@@ -94,10 +94,10 @@ export class RateComponent implements OnInit {
   }
 
   rateHackathon(e) {
-    this.event_id = this.rateForm.value.event_id;
+    this.hackathon_id = this.rateForm.value.hackathon_id;
     this.participant_id = this.rateForm.value.participant_id;
     this.points = this.rateForm.value.points;
-    this.contract.rateHackathonService(this.direction, this.event_id, this.participant_id, this.points).then((r) => {
+    this.contract.rateHackathonService(this.direction, this.hackathon_id, this.participant_id, this.points).then((r) => {
       this.contract.succes();
       console.log(r);
     }).catch((e) => {
@@ -109,7 +109,7 @@ export class RateComponent implements OnInit {
     if (!this.rateForm) { return; }
     const form = this.rateForm;
     for (const field in this.formErrors) {
-      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'event_id')) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'hackathon_id')) {
         this.formErrors[field] = '';
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {
