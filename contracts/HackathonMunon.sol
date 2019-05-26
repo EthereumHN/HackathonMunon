@@ -7,6 +7,7 @@ contract HackathonMunon
   // Events
   event HackathonCreation
   (
+    address hackaton_host,
     uint256 hackathon_id,
     string image_hash,
     string name
@@ -71,7 +72,7 @@ contract HackathonMunon
   mapping(uint256 => mapping(address => Participant)) public hackathon_participants; // Stores participant data
   // Rating history, enables correcting ratings and prevents rating
   mapping(uint256 => mapping(address => mapping(address => uint256))) public participant_ratings;
-  uint256 hackathon_count; // Helps generating a new hackathon id
+  uint256 public hackathon_count; // Helps generating a new hackathon id
   mapping(uint256 => mapping(address => bool)) public participant_has_cashed_out; // Helps preventing double cash out
   mapping(uint256 => uint256) public total_hackathon_points; // Helps calculating pot splits
   uint256 entry_fee = 10 finney; // Hackathon entry fee
@@ -142,7 +143,7 @@ contract HackathonMunon
   {
     hackathon_count += 1;
     hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen, image_hash, _name);
-    emit HackathonCreation(hackathon_count, image_hash,_name);
+    emit HackathonCreation(msg.sender, hackathon_count, image_hash,_name);
   }
 
   function join(
@@ -163,8 +164,9 @@ contract HackathonMunon
   ) public hasJoined(hackathon_id) participantExists(hackathon_id, participant_addr) pointsAreValid(points) isReviewEnabled(hackathon_id)
   {
     uint256 rating_stored = participant_ratings[hackathon_id][msg.sender][participant_addr];
-    hackathon_participants[hackathon_id][participant_addr].points .add(points.sub(rating_stored));
-    total_hackathon_points[hackathon_id].add(points.sub(rating_stored));
+    hackathon_participants[hackathon_id][participant_addr].points = hackathon_participants[hackathon_id][participant_addr].points.add(
+      points).sub(rating_stored);
+    total_hackathon_points[hackathon_id] = total_hackathon_points[hackathon_id].add(points).sub(rating_stored);
     participant_ratings[hackathon_id][msg.sender][participant_addr] = points;
     emit RatingSubmited(hackathon_id, msg.sender, participant_addr, points);
   }
