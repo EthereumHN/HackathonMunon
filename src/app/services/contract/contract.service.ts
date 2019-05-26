@@ -169,6 +169,30 @@ export class ContractService {
     });
   }
 
+  enableReviewHackathonService(originAccount, hackathon_id) {
+    const that = this;
+
+    return new Promise((resolve, reject) => {
+      const hackathonMunonContract = contract(hackathonMunon);
+      hackathonMunonContract.setProvider(that.web3Provider);
+      hackathonMunonContract.deployed().then((instance) => {
+          return instance.enableHackathonReview(
+            hackathon_id,
+            {
+              from: originAccount,
+            }
+          );
+        }).then((status) => {
+          if (status) {
+            return resolve(status);
+          }
+        }).catch((error) => {
+          console.log(error);
+          return reject('Error enabling review');
+        });
+    });
+  }
+
   rateHackathonService(originAccount, hackathon_id, participant_id, points) {
     const that = this;
 
