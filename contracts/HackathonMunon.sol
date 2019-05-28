@@ -52,6 +52,7 @@ contract HackathonMunon
     HackathonState state;
     string image_hash;
     string name;
+    uint256 pot;
   }
 
   struct Participant
@@ -71,7 +72,7 @@ contract HackathonMunon
   uint256 public hackathon_count; // Helps generating a new hackathon id
   mapping(uint256 => mapping(address => bool)) public participant_has_cashed_out; // Helps preventing double cash out
   mapping(uint256 => uint256) public total_hackathon_points; // Helps calculating pot splits
-  uint256 entry_fee = 10 finney; // Hackathon entry fee
+  uint256 entry_fee = 10 ether; // Hackathon entry fee
 
   // Modifiers
   modifier paysEntryFee()
@@ -138,7 +139,7 @@ contract HackathonMunon
   function createHackathon(string memory image_hash, string memory _name) public
   {
     hackathon_count += 1;
-    hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen, image_hash, _name);
+    hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen, image_hash, _name, 0);
     emit HackathonCreation(msg.sender, hackathon_count, image_hash,_name);
   }
 
@@ -148,6 +149,7 @@ contract HackathonMunon
   {
     Participant memory participant = Participant(msg.sender, 0);
     hackathon_participants[hackathon_id][msg.sender] = participant;
+    hackathons[hackathon_id].pot = hackathons[hackathon_id].pot.add(entry_fee);
     emit Registration(hackathon_id, msg.sender);
   }
 
@@ -172,9 +174,8 @@ contract HackathonMunon
     uint256 my_points = hackathon_participants[hackathon_id][msg.sender].points;
 
     // Calculate reward
-    uint256 total_pot = address(this).balance;
-    uint256 my_percentage = my_points.div(total_points);
-    uint256 my_reward = total_pot.mul(my_percentage);
+    uint256 pot = hackathons[hackathon_id].pot;
+    uint256 my_reward = pot.mul(my_points).div(total_points);
 
     msg.sender.transfer(my_reward);
     participant_has_cashed_out[hackathon_id][msg.sender] = true;

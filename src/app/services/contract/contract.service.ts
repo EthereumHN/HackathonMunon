@@ -155,7 +155,7 @@ export class ContractService {
             hackathon_id,
             {
               from: originAccount,
-              value: window.web3.utils.toWei('10', 'finney')
+              value: window.web3.utils.toWei('10', 'ether')
             }
           );
         }).then((status) => {
@@ -258,7 +258,7 @@ export class ContractService {
           );
         }).then((status) => {
           if (status) {
-            return resolve({status: true});
+            return resolve(status);
           }
         }).catch((error) => {
           console.log(error);

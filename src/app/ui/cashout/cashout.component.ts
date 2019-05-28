@@ -75,6 +75,7 @@ export class CashoutComponent implements OnInit {
   cashoutHackathon(e) {
     this.hackathon_id = this.cashoutForm.value.hackathon_id;
     this.contract.cashoutHackathonService(this.direction, this.hackathon_id).then((r) => {
+      console.log(r);
       this.contract.succes();
     }).catch((e) => {
       this.contract.failure('Cashout failed');
