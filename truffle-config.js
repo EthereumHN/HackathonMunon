@@ -14,7 +14,8 @@ module.exports = {
       // must be a thunk, otherwise truffle commands may hang in CI
       provider: () =>
         new HDWalletProvider(mnemonic, process.env.RINKEBY_API_URL),
-      network_id: "4"
+      network_id: "4",
+      skipDryRun: true
     }
   },
   compilers: {
