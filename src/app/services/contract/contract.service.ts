@@ -35,11 +35,10 @@ export class ContractService {
     }
 
     window.web3 = new Web3(this.web3Provider);
-    try{
+    try {
       this.web3Provider.enable();
       console.log('web3 enabled');
-    }catch(error)
-    {
+    } catch (error) {
       console.log('could not enable web3');
     }
   }
@@ -128,8 +127,8 @@ export class ContractService {
       hackathonMunonContract.setProvider(that.web3Provider);
       hackathonMunonContract.deployed().then((instance) => {
           return instance.createHackathon(
-            "",
-            "",
+            '',
+            '',
             {
               from: originAccount,
             });
