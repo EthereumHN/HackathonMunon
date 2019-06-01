@@ -1,0 +1,52 @@
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'rinkeby-fork'
+> Network id:      4
+> Block gas limit: 0x6acfc0
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > block number:        4486857
+   > block timestamp:     1559432502
+   > account:             0xfF9Fe9664e7e0A289A3c64c9e057bCa27Be6685A
+   > balance:             16.958755836
+   > gas used:            258162
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000516324 ETH
+
+   -------------------------------------
+   > Total cost:         0.000516324 ETH
+
+
+2_deploy_contract.js
+====================
+
+   Deploying 'HackathonMunon'
+   --------------------------
+   > block number:        4486859
+   > block timestamp:     1559432508
+   > account:             0xfF9Fe9664e7e0A289A3c64c9e057bCa27Be6685A
+   > balance:             16.95366009
+   > gas used:            2520845
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00504169 ETH
+
+   -------------------------------------
+   > Total cost:          0.00504169 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.005558014 ETH
