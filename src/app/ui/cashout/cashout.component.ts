@@ -76,7 +76,11 @@ export class CashoutComponent implements OnInit {
     this.hackathon_id = this.cashoutForm.value.hackathon_id;
     this.contract.cashoutHackathonService(this.direction, this.hackathon_id).then((r) => {
       console.log(r);
-      this.contract.succes();
+      var reward = r['logs'][0]['args']['reward'];
+      var weis = window['web3'].utils.fromWei(reward, "wei");
+      console.log(weis);
+      console.log("gud");
+      this.contract.printSnackbarMessage("You cashed back " + weis + " wei!");
     }).catch((e) => {
       this.contract.failure('Cashout failed');
     });
