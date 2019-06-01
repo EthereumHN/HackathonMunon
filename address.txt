@@ -18,6 +18,7 @@ Migrations dry-run (simulation)
    > block number:        4486857
    > block timestamp:     1559432502
    > account:             0xfF9Fe9664e7e0A289A3c64c9e057bCa27Be6685A
+   > contract address:    0x3000DdC8595146802240bebc350532E35e346734
    > balance:             16.958755836
    > gas used:            258162
    > gas price:           2 gwei
