@@ -14,7 +14,6 @@ export class AccountComponent {
   direction;
   balance: string;
   data;
-  nombre: 'gatos';
   constructor(private contract: ContractService, private snackbar: MdcSnackbar, private sanitizer: DomSanitizer) {
    contract.seeAccountInfo().then((value: any) => {
       this.direction = value.originAccount;
