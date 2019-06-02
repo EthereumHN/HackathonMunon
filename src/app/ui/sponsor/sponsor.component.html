@@ -1,0 +1,26 @@
+<div class="body">
+    <mdc-card class="sponsor" [mdcElevation]="2">
+        &nbsp;
+        <section class="header" style="text-align:center">
+            <h4>Your address is:</h4>
+            <h6>{{ direction}} </h6>
+            <h4>Balance:</h4>
+            <h5>{{balance}} ETH</h5>
+        </section>
+        <form [formGroup]="sponsorForm">
+            <mdc-form-field fluid>
+                <mdc-text-field type="text" min=0 label="Hackathon Id" outlined class="demo-text-field--outline" required id="hackathon_id" formControlName="hackathon_id"></mdc-text-field>
+                <mdc-text-field type="text" min=0 label="Sponsorship value" outlined class="demo-text-field--outline" required id="sponsorship_value" formControlName="sponsorship_value"></mdc-text-field>
+                <mdc-helper-text persistent validation *ngIf="formErrors.amount"> {{ formErrors.amount }} </mdc-helper-text>
+            </mdc-form-field>
+        </form>
+
+        &nbsp;
+        <div class="button-container">
+          <button mdc-button secondary unelevated  class="big-round-shape-button" (click)="sponsorHackathon($event)">Sponsor Hackathon</button>
+        </div>
+        &nbsp;
+    </mdc-card>
+</div>
+  
+  

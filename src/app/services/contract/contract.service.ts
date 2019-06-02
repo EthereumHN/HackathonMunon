@@ -169,6 +169,31 @@ export class ContractService {
     });
   }
 
+  sponsorHackathonService(originAccount, hackathon_id, sponsorship_value) {
+    const that = this;
+
+    return new Promise((resolve, reject) => {
+      const hackathonMunonContract = contract(hackathonMunon);
+      hackathonMunonContract.setProvider(that.web3Provider);
+      hackathonMunonContract.deployed().then((instance) => {
+          return instance.sponsor(
+            hackathon_id,
+            {
+              from: originAccount,
+              value: window.web3.utils.toWei(sponsorship_value, 'ether')
+            }
+          );
+        }).then((status) => {
+          if (status) {
+            return resolve(status);
+          }
+        }).catch((error) => {
+          console.log(error);
+          return reject('Error sponsoring hackathon');
+        });
+    });
+  }
+
   enableReviewHackathonService(originAccount, hackathon_id) {
     const that = this;
 

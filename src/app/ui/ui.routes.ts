@@ -2,6 +2,7 @@ import { AccountComponent } from './account/account.component';
 import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
 import { JoinComponent } from './join/join.component';
+import { SponsorComponent } from './sponsor/sponsor.component';
 import { EnableReviewComponent } from './enable-review/enable_review.component';
 import { FinishComponent } from './finish/finish.component';
 import { RateComponent } from './rate/rate.component';
@@ -13,6 +14,7 @@ export const UiRoute: Routes = [
   { path: 'transaction', component: TransactionComponent},
   { path: 'create', component: CreateComponent},
   { path: 'join', component: JoinComponent},
+  { path: 'sponsor', component: SponsorComponent},
   { path: 'enable-review', component: EnableReviewComponent},
   { path: 'finish', component: FinishComponent},
   { path: 'rate', component: RateComponent},
