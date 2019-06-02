@@ -9,6 +9,12 @@ import { rootRouterConfig } from './app.route';
 // UI
 import { UiModule} from './ui/ui.module';
 
+// Angularfire
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +25,9 @@ import { UiModule} from './ui/ui.module';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: false }),
     UiModule
   ],

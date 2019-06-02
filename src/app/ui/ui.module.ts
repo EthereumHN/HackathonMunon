@@ -15,13 +15,25 @@ import { FinishComponent } from './finish/finish.component';
 import { CashoutComponent } from './cashout/cashout.component';
 import { RateComponent } from './rate/rate.component';
 import { CreateComponent } from './create/create.component';
-
+import { CoreModule } from '../core/core.module';
 @NgModule({
-  declarations: [TopNavComponent, TransactionComponent, AccountComponent, HomeComponent, CreateComponent, JoinComponent, SponsorComponent, RateComponent, CashoutComponent, EnableReviewComponent, FinishComponent],
+  declarations:
+   [TopNavComponent,
+    TransactionComponent,
+    AccountComponent,
+    HomeComponent,
+    CreateComponent,
+    JoinComponent,
+    SponsorComponent,
+    RateComponent,
+    CashoutComponent,
+    EnableReviewComponent,
+    FinishComponent],
   imports: [
     AppMaterialModule,
     CommonModule,
     FormsModule,
+    CoreModule,
     ReactiveFormsModule,
     RouterModule.forChild(UiRoute)
   ],
