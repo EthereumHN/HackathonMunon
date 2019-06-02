@@ -10,13 +10,20 @@ contract HackathonMunon
     address hackaton_host,
     uint256 hackathon_id,
     string image_hash,
-    string name
+    string name,
+    uint256 creation_time
   );
 
   event Registration
   (
     uint256 hackathon_id,
     address participant_addr
+  );
+
+  event SponsorshipSubmited
+  (
+    uint256 hackathon_id,
+    uint256 value
   );
 
   event RatingSubmited
@@ -53,6 +60,8 @@ contract HackathonMunon
     string image_hash;
     string name;
     uint256 pot;
+    uint256 creation_time;
+    uint256 enable_review_time;
   }
 
   struct Participant
@@ -129,6 +138,24 @@ contract HackathonMunon
     _;
   }
 
+  modifier isNotFinished(uint256 hackathon_id)
+  {
+    require(hackathons[hackathon_id].state != HackathonState.Finished, "Hackathon is finished");
+    _;
+  }
+
+  modifier twoMonthFromCreation(uint256 hackathon_id)
+  {
+    require(now >= hackathons[hackathon_id].creation_time + 60 days, "time must be greater than 2 months");
+    _;
+  }
+
+  modifier oneWeekFromReview(uint256 hackathon_id)
+  {
+    require(now >= hackathons[hackathon_id].enable_review_time + 7 days, "time must be greater than 1 week");
+    _;
+  }
+
   modifier isHackathonHost(uint256 hackathon_id)
   {
     require(hackathons[hackathon_id].host_addr == msg.sender, "You are not the hackathon host");
@@ -139,8 +166,9 @@ contract HackathonMunon
   function createHackathon(string memory image_hash, string memory _name) public
   {
     hackathon_count += 1;
-    hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen, image_hash, _name, 0);
-    emit HackathonCreation(msg.sender, hackathon_count, image_hash,_name);
+    uint256 date_now = now;
+    hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen, image_hash, _name, 0, date_now, date_now);
+    emit HackathonCreation(msg.sender, hackathon_count, image_hash,_name, date_now);
   }
 
   function join(
@@ -151,6 +179,14 @@ contract HackathonMunon
     hackathon_participants[hackathon_id][msg.sender] = participant;
     hackathons[hackathon_id].pot = hackathons[hackathon_id].pot.add(entry_fee);
     emit Registration(hackathon_id, msg.sender);
+  }
+
+  function sponsor(
+    uint256 hackathon_id
+  ) public payable isNotFinished(hackathon_id)
+  {
+    hackathons[hackathon_id].pot = hackathons[hackathon_id].pot.add(msg.value);
+    emit SponsorshipSubmited(hackathon_id, msg.value);
   }
 
   function rate(
@@ -185,6 +221,7 @@ contract HackathonMunon
   function enableHackathonReview(uint256 hackathon_id) public isHackathonHost(hackathon_id)
   {
     hackathons[hackathon_id].state = HackathonState.ReviewEnabled;
+    hackathons[hackathon_id].enable_review_time = now;
     emit HackathonReviewEnabled(hackathon_id);
   }
 
@@ -192,5 +229,21 @@ contract HackathonMunon
   {
     hackathons[hackathon_id].state = HackathonState.Finished;
     emit HackathonFinished(hackathon_id);
+  }
+
+  function forceFinishHackathon(uint256 hackathon_id) public isRegistrationOpen(hackathon_id) twoMonthFromCreation(hackathon_id)
+  {
+    hackathons[hackathon_id].state = HackathonState.Finished;
+    emit HackathonFinished(hackathon_id);
+  }
+
+  function forceFinishHackathonFromReview(uint256 hackathon_id) public isReviewEnabled(hackathon_id) oneWeekFromReview(hackathon_id)
+  {
+    hackathons[hackathon_id].state = HackathonState.Finished;
+    emit HackathonFinished(hackathon_id);
+  }
+
+  function () external payable {
+    revert();
   }
 }
