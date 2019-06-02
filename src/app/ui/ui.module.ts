@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AccountComponent } from './account/account.component';
 import { HomeComponent } from './home/home.component';
 import { JoinComponent } from './join/join.component';
+import { SponsorComponent } from './sponsor/sponsor.component';
 import { EnableReviewComponent } from './enable-review/enable_review.component';
 import { FinishComponent } from './finish/finish.component';
 import { CashoutComponent } from './cashout/cashout.component';
@@ -23,6 +24,7 @@ import { CoreModule } from '../core/core.module';
     HomeComponent,
     CreateComponent,
     JoinComponent,
+    SponsorComponent,
     RateComponent,
     CashoutComponent,
     EnableReviewComponent,
