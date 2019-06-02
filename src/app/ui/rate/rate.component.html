@@ -15,7 +15,9 @@
                 &nbsp;
                 <mdc-text-field type="text" min=0 label="Points" outlined class="demo-text-field--outline" required id="points" formControlName="points"></mdc-text-field>
                 &nbsp;
-                <mdc-helper-text persistent validation *ngIf="formErrors.amount"> {{ formErrors.amount }} </mdc-helper-text>
+                <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress"> {{ formErrors.sendaddress }} </mdc-helper-text>
+                &nbsp;
+                <mdc-helper-text persistent validation *ngIf="formErrors.points"> {{ formErrors.points }} </mdc-helper-text>
             </mdc-form-field>
         </form>
 

@@ -10,7 +10,7 @@
         <form [formGroup]="joinForm">
             <mdc-form-field fluid>
                 <mdc-text-field type="text" min=0 label="Hackathon Id" outlined class="demo-text-field--outline" required id="hackathon_id" formControlName="hackathon_id"></mdc-text-field>
-                <mdc-helper-text persistent validation *ngIf="formErrors.amount"> {{ formErrors.amount }} </mdc-helper-text>
+                <mdc-helper-text persistent validation *ngIf="formErrors.hackathon_id"> {{ formErrors.hackathon_id }} </mdc-helper-text>
             </mdc-form-field>
         </form>
 
@@ -21,5 +21,4 @@
         &nbsp;
     </mdc-card>
 </div>
-  
-  
+

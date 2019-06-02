@@ -75,8 +75,8 @@ export class FinishComponent implements OnInit {
   finishHackathon(e) {
     this.hackathon_id = this.finishForm.value.hackathon_id;
     this.contract.finishHackathonService(this.direction, this.hackathon_id).then((r) => {
-      var hackathon_id = r['logs'][0]['args']['hackathon_id']['words'][0];
-      this.contract.printSnackbarMessage("Success! Hackathon " + hackathon_id + " is now finished, cashout is now enabled.");
+    //  let hackathon_id = r.logs[0].args['hackathon_id'].words[0];
+      this.contract.printSnackbarMessage('Success! Hackathon ' + this.hackathon_id + ' is now finished, cashout is now enabled.');
       console.log(r);
     }).catch((e) => {
       this.contract.failure('Enable reivew failed');

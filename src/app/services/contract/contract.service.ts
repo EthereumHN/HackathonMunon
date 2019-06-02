@@ -24,13 +24,14 @@ export class ContractService {
       this.web3Provider = window.web3.currentProvider;
       console.log(this.web3Provider);
     } else {
-      this.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545');
+   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/fcbcb2a5dc574c33be6baa5d697bcf20'));
+   //   this.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545');
       // lo cambias por tu numero de puerto en linux es http://localhost:7545
    // } else {
    //   borrar el localhost y usar este si se va a usar en la red de infura
    //   console.log('Un parece que no estas conectado');
    //   Web3.providers.HttpProvider.prototype.sendAsync = Web3.providers.HttpProvider.prototype.send;
-   //   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/ca2b12f732ef47fcb6b76223b39f8cf3'));
+   //   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/fcbcb2a5dc574c33be6baa5d697bcf20'));
    // Cambiarlo con la private key propia de infura.io
     }
 

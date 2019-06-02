@@ -47,12 +47,11 @@ export class Identicon {
       const backgroundSaturation = 0.9;
 
       this.background  = this.options.background || this.hsl2rgb(backgroundHue, backgroundSaturation, 0.32);
-      console.log(hue, saturation, brightness, this.hsl2rgb(hue, saturation, brightness));
-      console.log(backgroundHue, backgroundSaturation, brightness, this.hsl2rgb(backgroundHue, backgroundSaturation, 0.32));
   }
 
 
   private image(): Svg {
+// tslint:disable-next-line: no-use-before-declare
         return new Svg(this.size, this.foreground, this.background);
   }
 
@@ -159,7 +158,7 @@ class Svg {
 
         for (i = 0; i < this.rectangles.length; i++) {
               rect = this.rectangles[i];
-              if (rect.color == bg) { continue; }
+              if (rect.color === bg) { continue; }
               xml += '<rect '
                   + ' x=\''      + rect.x + '\''
                   + ' y=\''      + rect.y + '\''
