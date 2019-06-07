@@ -1,6 +1,6 @@
 import { AppMaterialModule } from './app.material.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ContractService } from './services/contract/contract.service';
 import { AppComponent } from './app.component';
@@ -8,12 +8,8 @@ import { RouterModule } from '@angular/router';
 import { rootRouterConfig } from './app.route';
 // UI
 import { UiModule} from './ui/ui.module';
-
-// Angularfire
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { environment } from 'src/environments/environment';
+// IPFS
+import { initIPFS, IPFS } from './services/ipfs';
 
 
 @NgModule({
@@ -25,13 +21,15 @@ import { environment } from 'src/environments/environment';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: false }),
     UiModule
   ],
-  providers: [
+  providers: [{
+      provide: APP_INITIALIZER,
+      useFactory: initIPFS,
+      multi: true,
+      deps: [IPFS]
+    },
     ContractService
   ],
   bootstrap: [AppComponent]
