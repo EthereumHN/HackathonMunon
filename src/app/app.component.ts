@@ -11,21 +11,23 @@ import { Buffer } from 'buffer';
 export class AppComponent implements OnInit {
   public hash: string;
 
-  constructor(@Inject(IPFS) private ipfs) {}
+  constructor(
+  //  @Inject(IPFS) private ipfs
+    ) {}
 
   async ngOnInit() {
-    const version = await this.ipfs.version();
-    console.log({version});
+ //   const version = await this.ipfs.version();
+//    console.log({version});
   }
 
-  public async set(path: string, value: string) {
-    const content = Buffer.from(value);
-    const filesAdded = await this.ipfs.files.add({path, content});
-    this.hash = filesAdded[0].hash;
-  }
+//  public async set(path: string, value: string) {
+//    const content = Buffer.from(value);
+//    const filesAdded = await this.ipfs.files.add({path, content});
+//    this.hash = filesAdded[0].hash;
+//  }
 
-  public async get(hash: string) {
-    const fileBuffer = await this.ipfs.files.cat(hash);
-    console.log(fileBuffer.toString());
-  }
+//  public async get(hash: string) {
+//    const fileBuffer = await this.ipfs.files.cat(hash);
+//    console.log(fileBuffer.toString());
+//  }
 }

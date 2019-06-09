@@ -13,12 +13,14 @@ export class TopNavComponent implements OnInit {
   direction;
   resolution;
   account_image;
-
+  account;
   constructor(private contract: ContractService, private sanitizer: DomSanitizer) {
     contract.seeAccountInfo().then((value: any) => {
        this.direction = value.originAccount;
        this.resolution = window.innerWidth;
+       this.account = this.direction.slice(0, 5);
        this.getImage();
+       this.direction.slice(5);
      }).catch((error: any) => {
        contract.failure('Could\'t get the account data, please check if metamask is running correctly and refresh the page');
      });

@@ -6,6 +6,11 @@
       <button mdcIconButton mdcTopAppBarNavIcon icon="menu"  (click)="demoModal.open = !demoModal.open" *ngIf="resolution >= 600"></button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
+        <a  mdc-list-item  routerLink="/account" *ngIf="resolution >= 600">
+          <img [src]="account_image" class="profile" />
+          {{account}}..
+        </a>
+      <mdc-icon *ngIf="resolution <= 599" routerLink="/account">person</mdc-icon>
     </mdc-top-app-bar-section>
   </mdc-top-app-bar-row>
   <mdc-top-app-bar-row *ngIf="resolution <= 599">
@@ -41,12 +46,6 @@
               <mdc-icon mdcListItemGraphic>attach_money</mdc-icon>Cash out
             </a>
 
-           <!----
-           <a  mdc-list-item routerLink="/account">
-              <img [src]="account_image" class="profile" />
-              {{direction.slice(0,5)}}...{{direction.slice(-5) | async}}
-            </a>
-            >  <!---->
           </mdc-list>
         </mdc-drawer-content>
       </mdc-drawer>
