@@ -5,6 +5,8 @@ module.exports = {
       https: true,
       os: true,
       vm: true,
-      stream: true
+      stream: true,
+      path: true,
+      buffer: true
     }
   }
