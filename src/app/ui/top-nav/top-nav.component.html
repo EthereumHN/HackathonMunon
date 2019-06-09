@@ -1,11 +1,9 @@
 <mdc-top-app-bar #demoappbar fixed [mdcElevation]="4" [fixedAdjustElement]="mainContent">
 	<mdc-top-app-bar-row>
-		<mdc-top-app-bar-section align="start" title="Hackathon Muñon">
+		<mdc-top-app-bar-section align="start" title="Hackathon Muñón">
       <button mdcIconButton mdcTopAppBarNavIcon icon="menu"  (click)="demoModal.open = !demoModal.open"></button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
-      <mdc-icon mdcTopAppBarActionItem routerLink="/account">person</mdc-icon>
-
     </mdc-top-app-bar-section>
 	</mdc-top-app-bar-row>
 </mdc-top-app-bar>
@@ -14,17 +12,12 @@
     <div class="layout__row--no-wrap demo-drawer-app">
       <mdc-drawer drawer="modal" #demoModal open>
         <mdc-drawer-header>
-          <h3 mdcDrawerTitle>Hackathon Muñon ⛓️</h3>
-          <h6 mdcDrawerSubtitle>2019</h6>
+          <h3 mdcDrawerTitle>Your menu</h3>
         </mdc-drawer-header>
         <mdc-drawer-content>
           <mdc-list useActivatedClass>
-            <a mdc-list-item routerLink="/create">
-              <mdc-icon mdcListItemGraphic>add</mdc-icon>Create
-            </a>
-
             <a mdc-list-item routerLink="/join">
-              <mdc-icon mdcListItemGraphic>compare_arrows</mdc-icon>Join
+              <mdc-icon mdcListItemGraphic>check</mdc-icon>Join
             </a>
 
             <a mdc-list-item routerLink="/rate">
@@ -35,15 +28,9 @@
               <mdc-icon mdcListItemGraphic>attach_money</mdc-icon>Cash out
             </a>
 
-            <a mdc-list-item routerLink="/enable-review">
-              <mdc-icon mdcListItemGraphic>compare_arrows</mdc-icon>Enable review
-            </a>
-            <a mdc-list-item routerLink="/finish">
-              <mdc-icon mdcListItemGraphic>compare_arrows</mdc-icon>Finish hackathon
-            </a>
-
-            <a mdc-list-item routerLink="/sponsor">
-              <mdc-icon mdcListItemGraphic>attach_money</mdc-icon>Sponsor
+            <a mdc-list-item routerLink="/account">
+              <img [src]="account_image" class="profile" />
+              {{direction.slice(0,5)}}...{{direction.slice(-5)}}
             </a>
           </mdc-list>
         </mdc-drawer-content>

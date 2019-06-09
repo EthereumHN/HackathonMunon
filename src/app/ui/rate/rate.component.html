@@ -1,31 +1,27 @@
 <div class="body">
-    <mdc-card class="rate" [mdcElevation]="2">
+  <mdc-card class="rate" [mdcElevation]="2">
+    &nbsp;
+    <section class="header" style="text-align:center">
+      <h3>Rate your peer from 0 (the worst rating) to 5 (the best rating). Check out the <a href="https://github.com/Turupawn/HackathonMunon/wiki#judging-criteria">Judging Criteria</a> to know what to evaulate.</h3>
+    </section>
+    <form [formGroup]="rateForm">
+      <mdc-form-field fluid>
+        <mdc-text-field type="text" min=0 label="Hackathon Id" outlined class="demo-text-field--outline" required id="hackathon_id" formControlName="hackathon_id"></mdc-text-field>
         &nbsp;
-        <section class="header" style="text-align:center">
-            <h4>Your address is:</h4>
-            <h6>{{ direction}} </h6>
-            <h4>Balance:</h4>
-            <h5>{{balance}} ETH</h5>
-        </section>
-        <form [formGroup]="rateForm">
-            <mdc-form-field fluid>
-                <mdc-text-field type="text" min=0 label="Hackathon Id" outlined class="demo-text-field--outline" required id="hackathon_id" formControlName="hackathon_id"></mdc-text-field>
-                &nbsp;
-                <mdc-text-field type="text" min=0 label="Participant Id" outlined class="demo-text-field--outline" required id="participant_id" formControlName="participant_id"></mdc-text-field>
-                &nbsp;
-                <mdc-text-field type="text" min=0 label="Points" outlined class="demo-text-field--outline" required id="points" formControlName="points"></mdc-text-field>
-                &nbsp;
-                <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress"> {{ formErrors.sendaddress }} </mdc-helper-text>
-                &nbsp;
-                <mdc-helper-text persistent validation *ngIf="formErrors.points"> {{ formErrors.points }} </mdc-helper-text>
-            </mdc-form-field>
-        </form>
-
+        <mdc-text-field type="text" min=0 label="Participant Id" outlined class="demo-text-field--outline" required id="participant_id" formControlName="participant_id"></mdc-text-field>
         &nbsp;
-        <div class="button-container">
-          <button mdc-button secondary unelevated  class="big-round-shape-button" (click)="rateHackathon($event)">Rate Hackathon</button>
-        </div>
+        <mdc-text-field type="text" min=0 label="Points" outlined class="demo-text-field--outline" required id="points" formControlName="points"></mdc-text-field>
         &nbsp;
-    </mdc-card>
+        <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress"> {{ formErrors.sendaddress }} </mdc-helper-text>
+        &nbsp;
+        <mdc-helper-text persistent validation *ngIf="formErrors.points"> {{ formErrors.points }} </mdc-helper-text>
+      </mdc-form-field>
+    </form>
+    &nbsp;
+    <div class="button-container">
+      <button mdc-button secondary unelevated  class="big-round-shape-button" (click)="rateHackathon($event)">Rate participant</button>
+    </div>
+    &nbsp;
+  </mdc-card>
 </div>
 
