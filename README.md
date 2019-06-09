@@ -1,3 +1,7 @@
+
+
+![Logo](https://hackathonmunon.web.app/assets/munon.png)
+
 # Hackathon Muñón: Dapp Edition
 
 _Hack, review and split the pot!_
