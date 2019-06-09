@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ContractService } from './../../services/contract/contract.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Identicon } from '../../services/identicon';
@@ -11,20 +11,26 @@ import { Md5 } from 'ts-md5/dist/md5';
 })
 export class TopNavComponent implements OnInit {
   direction;
+  resolution;
   account_image;
 
   constructor(private contract: ContractService, private sanitizer: DomSanitizer) {
     contract.seeAccountInfo().then((value: any) => {
        this.direction = value.originAccount;
+       this.resolution = window.innerWidth;
        this.getImage();
- 
      }).catch((error: any) => {
        contract.failure('Could\'t get the account data, please check if metamask is running correctly and refresh the page');
      });
+  }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.resolution = window.innerWidth;
   }
 
   ngOnInit() {
+    this.resolution = window.innerWidth;
   }
 
   getImage() {

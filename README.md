@@ -64,7 +64,7 @@ change the port in truffle-config.js 8545 in windows the port is 7545 but in lin
 | `Error: the tx doesn't have the correct nonce.` in MetaMask                                                                                              | Reset MetaMask: Settings -> Reset Account                                                          |
 | `Error getting balance; see log.` in UI, with `Error: MetaCoin has not been deployed to detected network (network/artifact mismatch)` in browser console | Ensure you have started ganache, run `truffle migrate` and configured MetaMask to point to ganache | `Error: i cannot see my account or balance` Ensure you are logged in metamask and refresh | If you have a custom rcp in ganache you can change the dir in `src/app/contract/contract.service.ts line21 with your dir` | `Error: [ethjs-rpc] rpc error with payload` in Metamask | You may need upadate Ganache and restart metamask because some old vesions give 0 gas and the transaction is mark as underpriced |
 
-Developped on top of Truffle [Make Your Own Truffle Box](https://truffleframework.com/docs/truffle/advanced/creating-a-truffle-box) and ng-es's [Boilerplate](https://github.com/ng-es/Angular-Truffle-Dapp/edit/master/README.md).
+Developped on top of Truffle [Make Your Own Truffle Box](https://truffleframework.com/docs/truffle/advanced/creating-a-truffle-box) and ng-es's [Boilerplate](https://github.com/ng-es/Angular-Truffle-Dapp).
 
 ## Code contributions welcome!
 

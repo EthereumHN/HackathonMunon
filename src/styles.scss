@@ -352,3 +352,26 @@ body {
 .custom-snackbar--label-ink-color {
   @include mdc-snackbar-label-ink-color($material-color-grey-50);
 }
+
+.mdc-tab {
+  @include mdc-tab-text-label-color(white);
+  @include mdc-tab-icon-color(white);
+}
+
+  .mdc-tab-bar {
+    margin-top: 1em;
+    @media (max-width: 599px) {
+      margin-top: .5em;
+    }
+
+
+    .mdc-tab__ripple {
+      @include mdc-states($material-color-brown-900);
+    }
+
+    .mdc-tab-indicator {
+      @include mdc-tab-indicator-underline-color(white);
+      @include mdc-tab-indicator-underline-height(3px);
+    }
+  }
+

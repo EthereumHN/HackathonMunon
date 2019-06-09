@@ -8,7 +8,7 @@ export const IPFS = new InjectionToken(
     factory: () => new ipfs()
   },
 );
-// Before this function you should have the ipfs injection token
+
 /**
  * Wait for the IPFS node to be initialized when the app is launched
  * @param node The Instance of the ipfs constructor
