@@ -8,8 +8,6 @@ import { RouterModule } from '@angular/router';
 import { rootRouterConfig } from './app.route';
 // UI
 import { UiModule} from './ui/ui.module';
-// IPFS
-import { initIPFS, IPFS } from './services/ipfs';
 
 
 @NgModule({
@@ -24,12 +22,7 @@ import { initIPFS, IPFS } from './services/ipfs';
     RouterModule.forRoot(rootRouterConfig, { useHash: false }),
     UiModule
   ],
-  providers: [{
-      provide: APP_INITIALIZER,
-      useFactory: initIPFS,
-      multi: true,
-      deps: [IPFS]
-    },
+  providers: [
     ContractService
   ],
   bootstrap: [AppComponent]

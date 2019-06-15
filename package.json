@@ -46,7 +46,6 @@
     "core-js": "^2.5.4",
     "dotenv": "^6.2.0",
     "ethers": "^4.0.20",
-    "ipfs": "^0.36.3",
     "openzeppelin-solidity": "^2.2.0",
     "rxjs": "~6.3.3",
     "truffle-contract": "^4.0.16",

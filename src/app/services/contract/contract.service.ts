@@ -20,8 +20,8 @@ export class ContractService {
   public accountsObservable = new Subject<string[]>();
 
   constructor(private snackbar: MdcSnackbar) {
-    if (typeof window.web3 !== 'undefined') {
-      this.web3Provider = window.web3.currentProvider;
+    if (typeof window.web3 !== 'undefined' || (typeof window.ethereum !== 'undefined')) {
+      this.web3Provider = window.ethereum || window.web3.currentProvider;
       console.log(this.web3Provider);
     } else {
    this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/fcbcb2a5dc574c33be6baa5d697bcf20'));
@@ -35,13 +35,7 @@ export class ContractService {
    // Cambiarlo con la private key propia de infura.io
     }
 
-    window.web3 = new Web3(this.web3Provider);
-    try {
-      this.web3Provider.enable();
-      console.log('web3 enabled');
-    } catch (error) {
-      console.log('could not enable web3');
-    }
+    console.log(window.web3);
   }
 
   seeAccountInfo() {
