@@ -6,7 +6,6 @@ import { Subject } from 'rxjs';
 declare let require: any;
 const Web3 = require('web3');
 const hackathonMunon = require('../../../../build/contracts/HackathonMunon.json');
-
 declare let window: any;
 
 @Injectable({
@@ -18,7 +17,7 @@ export class ContractService {
   private contracts: {};
   private accounts: string[];
   public accountsObservable = new Subject<string[]>();
-
+  public success: boolean;
   constructor(private snackbar: MdcSnackbar) {
     if (typeof window.web3 !== 'undefined' || (typeof window.ethereum !== 'undefined')) {
       this.web3Provider = window.ethereum || window.web3.currentProvider;
@@ -35,7 +34,14 @@ export class ContractService {
    // Cambiarlo con la private key propia de infura.io
     }
 
-    console.log(window.web3);
+    try {
+      this.web3Provider.enable();
+      this.success = true;
+      console.log('web3 enabled');
+    } catch (error) {
+      this.success = false;
+      console.log('could not enable web3'+ this.success);
+    }
   }
 
   seeAccountInfo() {
