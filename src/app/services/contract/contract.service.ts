@@ -23,7 +23,7 @@ export class ContractService {
       this.web3Provider = window.ethereum || window.web3.currentProvider;
       console.log(this.web3Provider);
     } else {
-   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/fcbcb2a5dc574c33be6baa5d697bcf20'));
+   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/b77387df3b3c41d69d7f106238a391a6'));
    //   this.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545');
       // lo cambias por tu numero de puerto en linux es http://localhost:7545
    // } else {
@@ -122,6 +122,8 @@ export class ContractService {
 
   createHackathonService(originAccount) {
     const that = this;
+    console.log("testing");
+    console.log(originAccount);
 
     return new Promise((resolve, reject) => {
       const hackathonMunonContract = contract(hackathonMunon);

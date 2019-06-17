@@ -40,6 +40,7 @@ export class CreateComponent implements OnInit {
 // tslint:disable-next-line: no-shadowed-variable
   constructor(private frb: FormBuilder, private contract: ContractService, private snackbar: MdcSnackbar) {
    contract.seeAccountInfo().then((value: any) => {
+      console.log(value);
       this.direction = value.originAccount;
       this.balance = value.balance;
     }).catch((error: any) => {
