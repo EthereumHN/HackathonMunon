@@ -81,7 +81,7 @@ contract HackathonMunon
   uint256 public hackathon_count; // Helps generating a new hackathon id
   mapping(uint256 => mapping(address => bool)) public participant_has_cashed_out; // Helps preventing double cash out
   mapping(uint256 => uint256) public total_hackathon_points; // Helps calculating pot splits
-  uint256 entry_fee = 0.05 ether; // Hackathon entry fee
+  uint256 entry_fee = 0.03 ether; // Hackathon entry fee
 
   // Modifiers
   modifier paysEntryFee()
