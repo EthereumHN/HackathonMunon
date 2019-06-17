@@ -20,8 +20,7 @@ export class TopNavComponent implements OnInit {
        this.resolution = window.innerWidth;
        this.account = this.direction.slice(0, 5);
        this.getImage();
-       this.direction.slice(5);
-     }).catch((error: any) => {
+        }).catch((error: any) => {
        contract.failure('Could\'t get the account data, please check if metamask is running correctly and refresh the page');
      });
   }

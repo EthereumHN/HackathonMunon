@@ -33,7 +33,7 @@ export class ContractService {
    //   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/fcbcb2a5dc574c33be6baa5d697bcf20'));
    // Cambiarlo con la private key propia de infura.io
     }
-
+    window.web3 = new Web3(this.web3Provider);
     try {
       this.web3Provider.enable();
       this.success = true;
