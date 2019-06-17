@@ -17,6 +17,15 @@ module.exports = {
           ),
       network_id: "4",
       skipDryRun: true
+    },
+    mainnet: {
+      // must be a thunk, otherwise truffle commands may hang in CI
+      provider: () =>
+        new HDWalletProvider(mnemonic, "https://mainnet.infura.io/v3/b77387df3b3c41d69d7f106238a391a6"
+          ),
+      network_id: "1",
+      gas: 4600000,
+      gasPrice: 10000000000
     }
   },
   compilers: {

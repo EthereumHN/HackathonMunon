@@ -1,0 +1,113 @@
+Compiling your contracts...
+===========================
+> Everything is up to date, there is nothing to compile.
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'mainnet-fork'
+> Network id:      1
+> Block gas limit: 0x7a2146
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > block number:        7978635
+   > block timestamp:     1560811180
+   > account:             0x730bF3B67090511A64ABA060FbD2F7903536321E
+   > balance:             0.12773338
+   > gas used:            258162
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00258162 ETH
+
+   -------------------------------------
+   > Total cost:          0.00258162 ETH
+
+
+2_deploy_contract.js
+====================
+
+   Deploying 'HackathonMunon'
+   --------------------------
+   > block number:        7978637
+   > block timestamp:     1560811183
+   > account:             0x730bF3B67090511A64ABA060FbD2F7903536321E
+   > balance:             0.10119551
+   > gas used:            2626759
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02626759 ETH
+
+   -------------------------------------
+   > Total cost:          0.02626759 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.02884921 ETH
+
+
+Starting migrations...
+======================
+> Network name:    'mainnet'
+> Network id:      1
+> Block gas limit: 0x7a2146
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > transaction hash:    0x5e3bc287cd423bd7999b628ec87893ef7b7382b8627281dc4f025199eef1f509
+   > Blocks: 2            Seconds: 36
+   > contract address:    0x897daEc34d60D94fd778f52d5C83219ec06D0826
+   > block number:        7978636
+   > block timestamp:     1560811189
+   > account:             0x730bF3B67090511A64ABA060FbD2F7903536321E
+   > balance:             0.12758338
+   > gas used:            273162
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00273162 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00273162 ETH
+
+
+2_deploy_contract.js
+====================
+
+   Deploying 'HackathonMunon'
+   --------------------------
+   > transaction hash:    0x9547984025da6db193bb55f7259b640f193bda474a2cd05a92f541e9de8d10ed
+   > Blocks: 1            Seconds: 24
+   > contract address:    0x380a9a27227d28E47F412fdBB073C9e1A049E0B1
+   > block number:        7978641
+   > block timestamp:     1560811259
+   > account:             0x730bF3B67090511A64ABA060FbD2F7903536321E
+   > balance:             0.10074551
+   > gas used:            2641759
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.02641759 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.02641759 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.02914921 ETH
