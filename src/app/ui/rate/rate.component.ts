@@ -44,7 +44,7 @@ export class RateComponent implements OnInit {
     },
     points: {
       required: 'Need points and stuff to rate',
-      max: 'Max points exceded'
+      max: 'Max points exceeded'
     }
   };
 
