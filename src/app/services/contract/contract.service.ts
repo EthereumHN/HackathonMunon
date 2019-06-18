@@ -19,9 +19,10 @@ export class ContractService {
   public accountsObservable = new Subject<string[]>();
   public success: boolean;
   constructor(private snackbar: MdcSnackbar) {
-    if (typeof window.web3 !== 'undefined' || (typeof window.ethereum !== 'undefined')) {
-      this.web3Provider = window.ethereum || window.web3.currentProvider;
+     if (typeof window.web3 === 'undefined' || (typeof window.ethereum !== 'undefined')) {
+      this.web3Provider = window.ethereum || window.web3;
       console.log(this.web3Provider);
+      window.web3 = new Web3(this.web3Provider);
     } else {
    this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/b77387df3b3c41d69d7f106238a391a6'));
    //   this.web3Provider = new Web3.providers.HttpProvider('HTTP://127.0.0.1:7545');
@@ -33,14 +34,13 @@ export class ContractService {
    //   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/fcbcb2a5dc574c33be6baa5d697bcf20'));
    // Cambiarlo con la private key propia de infura.io
     }
-    window.web3 = new Web3(this.web3Provider);
-    try {
+     try {
       this.web3Provider.enable();
       this.success = true;
       console.log('web3 enabled');
     } catch (error) {
       this.success = false;
-      console.log('could not enable web3'+ this.success);
+      console.log('could not enable web3' + this.success);
     }
   }
 
@@ -122,7 +122,7 @@ export class ContractService {
 
   createHackathonService(originAccount) {
     const that = this;
-    console.log("testing");
+    console.log('testing');
     console.log(originAccount);
 
     return new Promise((resolve, reject) => {

@@ -44,7 +44,7 @@ export class RateComponent implements OnInit {
     },
     points: {
       required: 'Need points and stuff to rate',
-      max: 'Max points exceded'
+      max: 'Max points exceeded'
     }
   };
 
@@ -100,12 +100,16 @@ export class RateComponent implements OnInit {
     });
   }
 
+  navigateTo() {
+    window.open('https://metamask.io/');
+  }
+
   onValueChanged(data?: any) {
     if (!this.rateForm) { return; }
     const form = this.rateForm;
     for (const field in this.formErrors) {
 // tslint:disable-next-line: max-line-length
-      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'points' || field === 'hackathon_id'|| field === 'participant_id')) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'points' || field === 'hackathon_id' || field === 'participant_id')) {
         this.formErrors[field] = '';
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {

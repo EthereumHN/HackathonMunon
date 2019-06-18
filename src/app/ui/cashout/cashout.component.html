@@ -1,4 +1,4 @@
-<div class="body">
+<div class="body" *ngIf="direction !== undefined">
   <mdc-card class="cashout" [mdcElevation]="2">
     &nbsp;
     <section class="header" style="text-align:center">
@@ -6,15 +6,63 @@
     </section>
     <form [formGroup]="cashoutForm">
       <mdc-form-field fluid>
-        <mdc-text-field type="text" min=0 label="Hackathon Id" outlined class="demo-text-field--outline" required id="hackathon_id" formControlName="hackathon_id"></mdc-text-field>
-        <mdc-helper-text persistent validation *ngIf="formErrors.hackathon_id"> {{ formErrors.hackathon_id }} </mdc-helper-text>
+        <mdc-text-field
+          type="text"
+          min="0"
+          label="Hackathon Id"
+          outlined
+          class="demo-text-field--outline"
+          required
+          id="hackathon_id"
+          formControlName="hackathon_id"
+        ></mdc-text-field>
+        <mdc-helper-text persistent validation *ngIf="formErrors.hackathon_id">
+         *{{ formErrors.hackathon_id }}
+        </mdc-helper-text>
       </mdc-form-field>
     </form>
     &nbsp;
     <div class="button-container">
-      <button mdc-button secondary unelevated  class="big-round-shape-button" (click)="cashoutHackathon($event)">Cashout</button>
+      <button mdc-button secondary unelevated  (click)="cashoutHackathon($event)" [disabled]="!cashoutForm.valid">
+        <mdc-icon *ngIf="!cashoutForm.valid">lock</mdc-icon>
+        <mdc-icon *ngIf="cashoutForm.valid">attach_money</mdc-icon>
+        Cashout
+      </button>
     </div>
     &nbsp;
   </mdc-card>
 </div>
+
+<div class="body" *ngIf="direction === undefined">
+    <mdc-card class="account" [mdcElevation]="2">
+      <div style="text-align:center">
+        <section class="header">
+          <h3>Web3 enabled browser and secure wallet required.</h3>
+          <h4>
+            Please check if metamask is running correctly and refresh the page
+          </h4>
+          <h5>
+            In order to use Hackathon Muñon, please install a secure wallet such
+            as MetaMask.
+          </h5>
+          <mdc-list-divider></mdc-list-divider>
+          &nbsp;
+
+          <div class="button-container">
+            &nbsp;
+            <button
+              mdc-button
+              secondary
+              unelevated
+              class=""
+              (click)="navigateTo()"
+            >
+              Get MetaMask
+            </button>
+          </div>
+          &nbsp;
+        </section>
+      </div>
+    </mdc-card>
+  </div>
 

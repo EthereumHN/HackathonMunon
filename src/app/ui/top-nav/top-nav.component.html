@@ -6,10 +6,11 @@
       <button mdcIconButton mdcTopAppBarNavIcon icon="menu"  (click)="demoModal.open = !demoModal.open" *ngIf="resolution >= 600"></button>
     </mdc-top-app-bar-section>
     <mdc-top-app-bar-section align="end">
-        <a  mdc-list-item  routerLink="/account"  *ngIf="resolution >= 600 && account">
-          <img [src]="account_image" class="profile" />
-          {{account}}..
-        </a>
+        <button mdc-button unelevated
+            routerLink="/account"  *ngIf="resolution >= 600 && account">
+            <img [src]="account_image" class="profile" />
+            <span mdcButtonLabel>{{account}}...</span>
+        </button>
       <mdc-icon *ngIf="resolution <= 599" routerLink="/account">person</mdc-icon>
       <mdc-icon *ngIf="resolution >= 599 && !account" routerLink="/account">person</mdc-icon>
     </mdc-top-app-bar-section>

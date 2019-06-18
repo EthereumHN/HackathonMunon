@@ -1,7 +1,41 @@
 <div class="body">
   <mdc-card class="register" [mdcElevation]="2">
+      <h1> Bienvenido a </h1>
+
     <div style="text-align:center">
       <img class="logo" src="assets/munon.png" alt="logo_muñon">
     </div>
+
+<div *ngIf="direction === undefined">
+      <div style="text-align:center">
+        <section class="header">
+          <h3>Web3 enabled browser and secure wallet required.</h3>
+          <h4>
+            Please check if metamask is running correctly and refresh the page
+          </h4>
+          <h5>
+            In order to use Hackathon Muñon, please install a secure wallet such
+            as MetaMask.
+          </h5>
+          <mdc-list-divider></mdc-list-divider>
+          &nbsp;
+
+          <div class="button-container">
+            &nbsp;
+            <button
+              mdc-button
+              secondary
+              unelevated
+              class=""
+              (click)="navigateTo()"
+            >
+              Get MetaMask
+            </button>
+          </div>
+          &nbsp;
+        </section>
+      </div>
+  </div>
   </mdc-card>
 </div>
+
