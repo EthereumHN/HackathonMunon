@@ -1,10 +1,10 @@
-import { contract } from 'truffle-contract';
 import { Component, OnInit } from '@angular/core';
 import { ContractService } from './../../services/contract/contract.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdcSnackbar } from '@angular-mdc/web';
+import { MdcSelectModule } from '@angular-mdc/web';
 
-type JoinField = 'sendaddress' | 'hackathon_id';
+type JoinField = 'sendaddress' | 'hackathonId';
 type FormErrors = {[u in JoinField]: string};
 @Component({
   selector: 'app-join',
@@ -14,15 +14,14 @@ type FormErrors = {[u in JoinField]: string};
 export class JoinComponent implements OnInit {
   direction: string;
   address: string;
-  hackathon_id: string;
+  hackathonId: string;
   balance: string;
   success: boolean;
   joinDone: boolean;
-
   joinForm: FormGroup;
   formErrors: FormErrors = {
     sendaddress: '',
-    hackathon_id: '',
+    hackathonId: '',
   };
   validationMessages = {
    sendaddress: {
@@ -31,7 +30,7 @@ export class JoinComponent implements OnInit {
    minlength: 'a address must have much than 40 characters',
 
    },
-   hackathon_id: {
+   hackathonId: {
      required: 'Need a hackathon id to join',
      pattern: 'Only support numbers',
    },
@@ -58,11 +57,7 @@ export class JoinComponent implements OnInit {
           Validators.minLength(42),
         ]
       ],
-      hackathon_id : ['', [
-          Validators.required,
-          Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
-        ]
-      ],
+      hackathonId : [''],
     });
     this.joinForm.valueChanges.subscribe((data) => this.onValueChanged(data));
     this.onValueChanged();
@@ -73,11 +68,11 @@ export class JoinComponent implements OnInit {
   }
 
   joinHackathon(e) {
-    this.hackathon_id = this.joinForm.value.hackathon_id;
-    this.contract.joinHackathonService(this.direction, this.hackathon_id).then((r) => {
-      var hackathon_id = r['logs'][0]['args']['hackathon_id']['words'][0];
-      var participant_addr = r['logs'][0]['args']['participant_addr'];
-      this.contract.printSnackbarMessage("Success! Your address is: " + participant_addr + " and registered to hackathon " + hackathon_id);
+    this.hackathonId = this.joinForm.value.hackathonId;
+    this.contract.joinHackathonService(this.direction, this.hackathonId).then((r) => {
+      const hackathonId = r.logs[0].args['hackathonId'].words[0];
+      const participant_addr = r.logs[0].args['participant_addr'];
+      this.contract.printSnackbarMessage('Success! Your address is: ' + participant_addr + ' and registered to hackathon ' + hackathonId);
       console.log(r);
     }).catch((e) => {
       this.contract.failure('Join failed');
@@ -88,7 +83,7 @@ export class JoinComponent implements OnInit {
     if (!this.joinForm) { return; }
     const form = this.joinForm;
     for (const field in this.formErrors) {
-      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'hackathon_id')) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'hackathonId')) {
         this.formErrors[field] = '';
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {
