@@ -21,7 +21,6 @@
           &nbsp;
 
           <div class="button-container">
-            &nbsp;
             <button
               mdc-button
               secondary
@@ -29,10 +28,35 @@
               class=""
               (click)="navigateTo()"
             >
+            <mdc-icon>computer</mdc-icon>
               Get MetaMask
             </button>
           </div>
           &nbsp;
+            <div class="button-container">
+            <button
+              mdc-button
+              class="big-round-shape-button status"
+              unelevated
+              (click)="navigateToPlayStore()"
+            >
+            <mdc-icon>phone_android</mdc-icon>
+              Get Android wallet
+            </button>
+          </div>
+          &nbsp;
+          <div class="button-container">
+              <button
+                mdc-button
+                class="big-round-shape-button coinbase"
+                unelevated
+                (click)="navigateToAppStore()"
+              >
+              <mdc-icon>phone_iphone</mdc-icon>
+              Get Apple wallet
+              </button>
+            </div>
+            &nbsp;
         </section>
       </div>
   </div>
