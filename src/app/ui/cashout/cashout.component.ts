@@ -53,11 +53,6 @@ export class CashoutComponent implements OnInit {
 
   buildForm() {
     this.cashoutForm = this.frb.group({
-      sendaddress: ['', [
-          Validators.required,
-          Validators.minLength(42),
-        ]
-      ],
       hackathon_id : ['', [
           Validators.required,
           Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
@@ -76,16 +71,19 @@ export class CashoutComponent implements OnInit {
     this.hackathon_id = this.cashoutForm.value.hackathon_id;
     this.contract.cashoutHackathonService(this.direction, this.hackathon_id).then((r) => {
       console.log(r);
-      var reward = r['logs'][0]['args']['reward'];
-      var weis = window['web3'].utils.fromWei(reward, "wei");
+      const reward = r['logs'][0]['args']['reward'];
+      const weis = window['web3'].utils.fromWei(reward, 'wei');
       console.log(weis);
-      console.log("gud");
-      this.contract.printSnackbarMessage("You cashed back " + weis + " wei!");
+      console.log('gud');
+      this.contract.printSnackbarMessage('You cashed back ' + weis + ' wei!');
     }).catch((e) => {
       this.contract.failure('Cashout failed');
     });
   }
 
+  navigateTo() {
+    window.open('https://metamask.io/');
+  }
   onValueChanged(data?: any) {
     if (!this.cashoutForm) { return; }
     const form = this.cashoutForm;
