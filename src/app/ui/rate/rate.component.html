@@ -24,6 +24,9 @@
           id="hackathon_id"
           formControlName="hackathon_id"
         ></mdc-text-field>
+        <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress">
+          * {{ formErrors.hackathon_id }}
+        </mdc-helper-text>
         &nbsp;
         <mdc-text-field
           type="text"
@@ -35,9 +38,12 @@
           id="participant_id"
           formControlName="participant_id"
         ></mdc-text-field>
+        <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress">
+          * {{ formErrors.participant_id }}
+        </mdc-helper-text>
         &nbsp;
         <mdc-text-field
-          type="text"
+          type="number"
           min="0"
           label="Points"
           outlined
@@ -45,15 +51,12 @@
           required
           id="points"
           formControlName="points"
-        ></mdc-text-field>
-        &nbsp;
-        <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress">
-          {{ formErrors.sendaddress }}
-        </mdc-helper-text>
-        &nbsp;
+        >
+        </mdc-text-field>
         <mdc-helper-text persistent validation *ngIf="formErrors.points">
-          {{ formErrors.points }}
+          * {{ formErrors.points }}
         </mdc-helper-text>
+        &nbsp; &nbsp;
       </mdc-form-field>
     </form>
     &nbsp;
@@ -62,12 +65,13 @@
         mdc-button
         secondary
         unelevated
-        class=""
+        class="big-round-shape-button"
         (click)="rateHackathon($event)"
+        [disabled]="!rateForm.valid"
       >
         Rate participant
       </button>
-    </div>
-    &nbsp;
-  </mdc-card>
+    </div></mdc-card
+  >
 </div>
+u

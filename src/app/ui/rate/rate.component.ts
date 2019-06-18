@@ -44,7 +44,7 @@ export class RateComponent implements OnInit {
     },
     points: {
       required: 'Need points and stuff to rate',
-      pattern: 'Only support numbers',
+      max: 'Max points exceded'
     }
   };
 
@@ -64,11 +64,6 @@ export class RateComponent implements OnInit {
 
   buildForm() {
     this.rateForm = this.frb.group({
-      sendaddress: ['', [
-          Validators.required,
-          Validators.minLength(42),
-        ]
-      ],
       hackathon_id : ['', [
           Validators.required,
           Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
@@ -76,12 +71,12 @@ export class RateComponent implements OnInit {
       ],
       participant_id : ['', [
           Validators.required,
-          Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
         ]
       ],
       points : ['', [
           Validators.required,
-          Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
+          Validators.min(0),
+          Validators.max(5)
         ]
       ],
     });
@@ -109,7 +104,8 @@ export class RateComponent implements OnInit {
     if (!this.rateForm) { return; }
     const form = this.rateForm;
     for (const field in this.formErrors) {
-      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'sendaddress' || field === 'hackathon_id')) {
+// tslint:disable-next-line: max-line-length
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field) && (field === 'points' || field === 'hackathon_id'|| field === 'participant_id')) {
         this.formErrors[field] = '';
         const control = form.get(field);
         if (control && control.dirty && !control.valid) {
