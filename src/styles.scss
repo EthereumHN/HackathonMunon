@@ -1,21 +1,27 @@
-$mdc-theme-primary: #5E464D; // primary color
-$mdc-theme-secondary: #43DCC1; // secondary color
+$mdc-theme-primary: #dc3545; // primary color
+$mdc-theme-secondary: #dc3545; // secondary color
 $mdc-theme-background: #f5f5f7;
 
-:root{
---success: #d5dfda;
---info: #00b8d8;
+:root {
+  --success: #d5dfda;
+  --info: #00b8d8;
 }
 
 @import "~@angular-mdc/theme/material";
 @import "~@angular-mdc/theme/material";
 
-.altcolor{
-color : #ea605c;
+.altcolor {
+  color: #ea605c;
 }
 body {
   margin: 0;
   background-color: $mdc-theme-background;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+h1 {
+  margin-top: 15px;
 }
 
 .error {
@@ -31,7 +37,7 @@ body {
   align-items: center;
   text-align: center;
   h2 {
-    color: #CACEDB;
+    color: #cacedb;
     font-weight: 700;
     font-size: 3.75rem;
     margin-bottom: 1.5625rem;
@@ -91,8 +97,8 @@ body {
   &__headline {
     @include mdc-typography(headline6);
 
-    margin-top: .1em;
-    margin-bottom: .3em;
+    margin-top: 0.1em;
+    margin-bottom: 0.3em;
   }
 }
 
@@ -126,7 +132,6 @@ body {
     @include mdc-image-list-masonry-columns(3);
   }
 }
-
 
 .demo-card {
   width: 350px;
@@ -195,7 +200,11 @@ body {
 
 .demo-card__media-title {
   padding: 8px 16px;
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
   color: white;
 }
 
@@ -320,15 +329,15 @@ body {
 }
 
 .demo-text-field-custom-colors:not(.mdc-text-field--invalid) {
-  $idle-border: rgba(blue, .38);
-  $hover-border: rgba(blue, .6);
+  $idle-border: rgba(blue, 0.38);
+  $hover-border: rgba(blue, 0.6);
   $focused-border: rgba(blue, 1);
 
   @include mdc-text-field-bottom-line-color($idle-border);
   @include mdc-text-field-hover-bottom-line-color($hover-border);
   @include mdc-text-field-line-ripple-color($focused-border);
   @include mdc-text-field-ink-color(black);
-  @include mdc-text-field-label-color(rgba(blue, .5));
+  @include mdc-text-field-label-color(rgba(blue, 0.5));
   @include mdc-text-field-outline-color($idle-border);
   @include mdc-text-field-hover-outline-color($hover-border);
   @include mdc-text-field-focused-outline-color($focused-border);
@@ -337,7 +346,7 @@ body {
   @include mdc-text-field-icon-color($hover-border);
 
   &.mdc-text-field--focused {
-    @include mdc-text-field-label-color(rgba(blue, .87));
+    @include mdc-text-field-label-color(rgba(blue, 0.87));
     @include mdc-text-field-icon-color($focused-border);
   }
 }
@@ -358,20 +367,18 @@ body {
   @include mdc-tab-icon-color(white);
 }
 
-  .mdc-tab-bar {
-    margin-top: 1em;
-    @media (max-width: 599px) {
-      margin-top: .5em;
-    }
-
-
-    .mdc-tab__ripple {
-      @include mdc-states($material-color-brown-900);
-    }
-
-    .mdc-tab-indicator {
-      @include mdc-tab-indicator-underline-color(white);
-      @include mdc-tab-indicator-underline-height(3px);
-    }
+.mdc-tab-bar {
+  margin-top: 1em;
+  @media (max-width: 599px) {
+    margin-top: 0.5em;
   }
 
+  .mdc-tab__ripple {
+    @include mdc-states($material-color-brown-900);
+  }
+
+  .mdc-tab-indicator {
+    @include mdc-tab-indicator-underline-color(white);
+    @include mdc-tab-indicator-underline-height(3px);
+  }
+}

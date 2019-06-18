@@ -5,24 +5,41 @@
       <h3>Pay the entry fee and start hacking!</h3>
     </section>
     <form [formGroup]="joinForm">
-
-      <mdc-select #hackathonId id="hackathonId" [helperText]="hackathonHelper" placeholder="City" name='hackathonId' formControlName="hackathonId"  outlined class="custom-select-outline-color">
-          <mdc-icon mdcSelectIcon>location_city</mdc-icon>
+      <mdc-select
+        #hackathonId
+        id="hackathonId"
+        [helperText]="hackathonHelper"
+        placeholder="City"
+        name="hackathonId"
+        formControlName="hackathonId"
+        outlined
+        class="custom-select-outline-color"
+      >
+        <mdc-icon mdcSelectIcon>location_city</mdc-icon>
         <mdc-menu>
-            <mdc-list>
-              <mdc-list-item value='1'>San Pedro Sula</mdc-list-item>
-              <mdc-list-item value='2'>Tegucigalpa</mdc-list-item>
-              </mdc-list>
-          </mdc-menu>
-        </mdc-select>
-        <mdc-helper-text #hackathonHelper validation>Any cities selected</mdc-helper-text>
-
+          <mdc-list>
+            <mdc-list-item value="1">San Pedro Sula</mdc-list-item>
+            <mdc-list-item value="2">Tegucigalpa</mdc-list-item>
+          </mdc-list>
+        </mdc-menu>
+      </mdc-select>
+      <mdc-helper-text #hackathonHelper validation
+        >Any cities selected</mdc-helper-text
+      >
     </form>
     &nbsp;
     <div class="button-container">
-      <button mdc-button secondary unelevated  class="big-round-shape-button" (click)="joinHackathon($event)" [disabled]="!hackathonId.value">Join Hackathon</button>
+      <button
+        mdc-button
+        secondary
+        unelevated
+        class=""
+        (click)="joinHackathon($event)"
+        [disabled]="!hackathonId.value"
+      >
+        Join Hackathon
+      </button>
     </div>
     &nbsp;
   </mdc-card>
 </div>
-

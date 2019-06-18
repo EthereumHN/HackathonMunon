@@ -6,12 +6,22 @@
     </section>
     <form [formGroup]="createForm">
       <mdc-form-field fluid>
-        <mdc-helper-text persistent validation *ngIf="formErrors.amount"> {{ formErrors.amount }} </mdc-helper-text>
+        <mdc-helper-text persistent validation *ngIf="formErrors.amount">
+          {{ formErrors.amount }}
+        </mdc-helper-text>
       </mdc-form-field>
     </form>
     &nbsp;
     <div class="button-container">
-      <button mdc-button secondary unelevated  class="big-round-shape-button" (click)="createHackathon($event)">Create Hackathon</button>
+      <button
+        mdc-button
+        secondary
+        unelevated
+        class=""
+        (click)="createHackathon($event)"
+      >
+        Create Hackathon
+      </button>
     </div>
     &nbsp;
   </mdc-card>

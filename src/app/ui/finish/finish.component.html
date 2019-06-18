@@ -2,19 +2,39 @@
   <mdc-card class="finish" [mdcElevation]="2">
     &nbsp;
     <section class="header" style="text-align:center">
-      <h3>Close registration and allow everyone to start reviewing each other.</h3>
+      <h3>
+        Close registration and allow everyone to start reviewing each other.
+      </h3>
     </section>
     <form [formGroup]="finishForm">
       <mdc-form-field fluid>
-        <mdc-text-field type="text" min=0 label="Hackathon Id" outlined class="demo-text-field--outline" required id="hackathon_id" formControlName="hackathon_id"></mdc-text-field>
-        <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress"> {{ formErrors.sendaddress }} </mdc-helper-text>
+        <mdc-text-field
+          type="text"
+          min="0"
+          label="Hackathon Id"
+          outlined
+          class="demo-text-field--outline"
+          required
+          id="hackathon_id"
+          formControlName="hackathon_id"
+        ></mdc-text-field>
+        <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress">
+          {{ formErrors.sendaddress }}
+        </mdc-helper-text>
       </mdc-form-field>
     </form>
     &nbsp;
     <div class="button-container">
-      <button mdc-button secondary unelevated  class="big-round-shape-button" (click)="finishHackathon($event)">Finish hackathon</button>
+      <button
+        mdc-button
+        secondary
+        unelevated
+        class=""
+        (click)="finishHackathon($event)"
+      >
+        Finish hackathon
+      </button>
     </div>
     &nbsp;
   </mdc-card>
 </div>
-
