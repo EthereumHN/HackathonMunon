@@ -157,7 +157,7 @@ export class ContractService {
             hackathon_id,
             {
               from: originAccount,
-              value: window.web3.utils.toWei('0.03', 'ether')
+              value: window.web3.utils.toWei('0.02', 'ether')
             }
           );
         }).then((status) => {
