@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ContractService } from './../../services/contract/contract.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdcSnackbar } from '@angular-mdc/web';
-import { MdcSelectModule } from '@angular-mdc/web';
 
 type JoinField = 'sendaddress' | 'hackathonId';
 type FormErrors = {[u in JoinField]: string};
@@ -69,13 +68,15 @@ export class JoinComponent implements OnInit {
 
   joinHackathon(e) {
     this.hackathonId = this.joinForm.value.hackathonId;
+    console.log('aca');
     this.contract.joinHackathonService(this.direction, this.hackathonId).then((r) => {
+      console.log(r);
       const hackathonId = r['logs'][0].args['hackathonId'].words[0];
       const participant_addr = r['logs'][0].args['participant_addr'];
       this.contract.printSnackbarMessage('Success! Your address is: ' + participant_addr + ' and registered to hackathon ' + hackathonId);
-      console.log(r);
-    }).catch((e) => {
-      this.contract.failure('Join failed');
+    }).catch((err) => {
+      this.contract.failure(err);
+   //   console.error(err);
     });
   }
 
