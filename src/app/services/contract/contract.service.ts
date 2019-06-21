@@ -295,7 +295,10 @@ export class ContractService {
   }
 
   failure(message: string) {
-    const snackbarRef = this.snackbar.open(message);
+    const snackbarRef = this.snackbar.open(message, 'Close', {
+      dismiss: false,
+      classes: 'custom-snackbar--fill-color',
+    });
     snackbarRef.afterDismiss().subscribe(reason => {});
   }
 

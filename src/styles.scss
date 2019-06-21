@@ -386,3 +386,7 @@ h1 {
     @include mdc-tab-indicator-underline-height(3px);
   }
 }
+
+.custom-snackbar--fill-color {
+  @include mdc-snackbar-fill-color($material-color-red-500);
+}
