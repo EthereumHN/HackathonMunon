@@ -13,25 +13,46 @@
       </h3>
     </section>
     <form [formGroup]="rateForm">
-      <mdc-form-field fluid>
-        <mdc-text-field
-          type="text"
-          min="0"
-          label="Hackathon Id"
-          outlined
-          class="demo-text-field--outline"
-          required
-          id="hackathon_id"
-          formControlName="hackathon_id"
-        ></mdc-text-field>
-        <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress">
-          * {{ formErrors.hackathon_id }}
-        </mdc-helper-text>
+      &nbsp;
+      <mdc-text-field
+        type="number"
+        min="0"
+        max="5"
+        label="Points (from 0 to 5)"
+        outlined
+        class="demo-text-field--outline points"
+        required
+        id="points"
+        formControlName="points"
+      >
+      </mdc-text-field>
+      <mdc-helper-text persistent validation *ngIf="formErrors.points">
+        * {{ formErrors.points }}
+      </mdc-helper-text>
+      &nbsp;
+        <mdc-select
+        #hackathonId
+        id="hackathon_id"
+        [helperText]="hackathonHelper"
+        placeholder="City"
+        name="hackathon_id"
+        outlined
+        class="custom-select-outline-color"
+      >
+        <mdc-icon mdcSelectIcon>location_city</mdc-icon>
+        <mdc-menu>
+          <mdc-list>
+            <mdc-list-item value="1">San Pedro Sula</mdc-list-item>
+            <mdc-list-item value="2">Tegucigalpa</mdc-list-item>
+          </mdc-list>
+        </mdc-menu>
+      </mdc-select>
+      <mdc-helper-text #hackathonHelper validation>Any cities selected</mdc-helper-text>
         &nbsp;
         <mdc-text-field
           type="text"
           min="0"
-          label="Participant Id"
+          label="Participant Address"
           outlined
           class="demo-text-field--outline"
           required
@@ -42,22 +63,8 @@
           * {{ formErrors.participant_id }}
         </mdc-helper-text>
         &nbsp;
-        <mdc-text-field
-          type="number"
-          min="0"
-          label="Points"
-          outlined
-          class="demo-text-field--outline"
-          required
-          id="points"
-          formControlName="points"
-        >
-        </mdc-text-field>
-        <mdc-helper-text persistent validation *ngIf="formErrors.points">
-          * {{ formErrors.points }}
-        </mdc-helper-text>
-        &nbsp; &nbsp;
-      </mdc-form-field>
+
+        &nbsp;
     </form>
     &nbsp;
     <div class="button-container">
