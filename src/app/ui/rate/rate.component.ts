@@ -66,7 +66,6 @@ export class RateComponent implements OnInit {
     this.rateForm = this.frb.group({
       hackathon_id : ['', [
           Validators.required,
-          Validators.pattern(/^[+-]?\d+(\.\d+)?$/),
         ]
       ],
       participant_id : ['', [

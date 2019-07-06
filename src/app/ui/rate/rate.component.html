@@ -13,29 +13,14 @@
       </h3>
     </section>
     <form [formGroup]="rateForm">
-      &nbsp;
-      <mdc-text-field
-        type="number"
-        min="0"
-        max="5"
-        label="Points (from 0 to 5)"
-        outlined
-        class="demo-text-field--outline points"
-        required
-        id="points"
-        formControlName="points"
-      >
-      </mdc-text-field>
-      <mdc-helper-text persistent validation *ngIf="formErrors.points">
-        * {{ formErrors.points }}
-      </mdc-helper-text>
-      &nbsp;
+        &nbsp;
         <mdc-select
         #hackathonId
         id="hackathon_id"
         [helperText]="hackathonHelper"
         placeholder="City"
         name="hackathon_id"
+        formControlName="hackathon_id"
         outlined
         class="custom-select-outline-color"
       >
@@ -48,7 +33,7 @@
         </mdc-menu>
       </mdc-select>
       <mdc-helper-text #hackathonHelper validation>Any cities selected</mdc-helper-text>
-        &nbsp;
+   &nbsp;
         <mdc-text-field
           type="text"
           min="0"
@@ -63,8 +48,23 @@
           * {{ formErrors.participant_id }}
         </mdc-helper-text>
         &nbsp;
-
-        &nbsp;
+        <div class="points">
+        <mdc-text-field
+          type="number"
+          min="0"
+          max="5"
+          label="Points (from 0 to 5)"
+          outlined
+          class="demo-text-field--outline-points"
+          required
+          id="points"
+          formControlName="points"
+        >
+        </mdc-text-field>
+        <mdc-helper-text persistent validation *ngIf="formErrors.points">
+          * {{ formErrors.points }}
+        </mdc-helper-text>
+      </div>
     </form>
     &nbsp;
     <div class="button-container">
