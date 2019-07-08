@@ -2,6 +2,8 @@
 
 ![Logo](https://hackathonmunon.web.app/assets/munon.png)
 
+[![Discord](https://img.shields.io/discord/593256013008994305.svg?label=Discord&logo=discord&color=7289DA&labelColor=2C2F33)](https://discord.gg/XUVGbS)
+
 # Hackathon Muñón: Dapp Edition
 
 _Hack, review and split the pot!_
