@@ -32,22 +32,7 @@
           </mdc-list>
         </mdc-menu>
       </mdc-select>
-      <mdc-helper-text #hackathonHelper validation>Any cities selected</mdc-helper-text>
-   &nbsp;
-        <mdc-text-field
-          type="text"
-          min="0"
-          label="Participant Address"
-          outlined
-          class="demo-text-field--outline"
-          required
-          id="participant_id"
-          formControlName="participant_id"
-        ></mdc-text-field>
-        <mdc-helper-text persistent validation *ngIf="formErrors.sendaddress">
-          * {{ formErrors.participant_id }}
-        </mdc-helper-text>
-        &nbsp;
+     &nbsp;
         <div class="points">
         <mdc-text-field
           type="number"
@@ -65,6 +50,31 @@
           * {{ formErrors.points }}
         </mdc-helper-text>
       </div>
+      &nbsp;
+      <mdc-select
+      #participant_id
+      id="participant_id"
+      [helperText]="hackathonHelper"
+      placeholder="Participants"
+      name="participant_id"
+      formControlName="participant_id"
+      outlined
+      class="custom-select-outline-color"
+    >
+      <mdc-icon mdcSelectIcon>person</mdc-icon>
+      <mdc-menu>
+        <mdc-list>
+          <mdc-list-item value="0x834Cd15FF1001a63EF7D397c8Ccd23520A654c0f">Antonio Cardenas</mdc-list-item>
+          <mdc-list-item value="0x8bce782e1628760dfd0439d51f1d9e0d64125498">Ari Melendez </mdc-list-item>
+          <mdc-list-item value="0x930A7CD60A633128B7c5181307781e6d033BA51a">Cristian Espinoza</mdc-list-item>
+          <mdc-list-item value="0xEcaf947720b336179d79C93B3ea3Be79C5c7D026">Isaac Martinez</mdc-list-item>
+          <mdc-list-item value="0xB3Bf95Aa39c4eB5772923c61693f35FC39e35fe0">Robert Mudgett</mdc-list-item>
+          <mdc-list-item value="0x93AbF70aC6eD98072Da627f756477Eb23fE8F2b5">Nelson Milla</mdc-list-item>
+        </mdc-list>
+      </mdc-menu>
+    </mdc-select>
+    <mdc-helper-text #hackathonHelper validation>Any participant selected</mdc-helper-text>
+
     </form>
     &nbsp;
     <div class="button-container">
