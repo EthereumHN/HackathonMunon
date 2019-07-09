@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContractService } from './../../services/contract/contract.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdcSnackbar } from '@angular-mdc/web';
+import { MdcSelectModule } from '@angular-mdc/web';
 
 type FinishField = 'sendaddress' | 'hackathon_id';
 type FormErrors = {[u in FinishField]: string};

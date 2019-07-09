@@ -5,21 +5,25 @@
       <h3>Once the hackathon finished, claim your reward!</h3>
     </section>
     <form [formGroup]="cashoutForm">
-      <mdc-form-field fluid>
-        <mdc-text-field
-          type="text"
-          min="0"
-          label="Hackathon Id"
-          outlined
-          class="demo-text-field--outline"
-          required
-          id="hackathon_id"
-          formControlName="hackathon_id"
-        ></mdc-text-field>
-        <mdc-helper-text persistent validation *ngIf="formErrors.hackathon_id">
-         *{{ formErrors.hackathon_id }}
-        </mdc-helper-text>
-      </mdc-form-field>
+      <mdc-select
+        #hackathonId
+        id="hackathon_id"
+        [helperText]="hackathonHelper"
+        placeholder="Select your City"
+        formControlName="hackathon_id"
+        name="hackathon_id"
+        outlined
+        class="custom-select-outline-color"
+      >
+        <mdc-icon mdcSelectIcon>location_city</mdc-icon>
+        <mdc-menu>
+          <mdc-list>
+            <mdc-list-item value="1">San Pedro Sula</mdc-list-item>
+            <mdc-list-item value="2">Tegucigalpa</mdc-list-item>
+          </mdc-list>
+        </mdc-menu>
+      </mdc-select>
+      <mdc-helper-text #hackathonHelper validation>Any cities selected</mdc-helper-text>
     </form>
     &nbsp;
     <div class="button-container">
