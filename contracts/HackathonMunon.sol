@@ -14,6 +14,11 @@ contract HackathonMunon
     uint256 creation_time
   );
 
+  event FeeChanged
+  (
+    uint256 new_fee
+  );
+
   event Registration
   (
     uint256 hackathon_id,
@@ -169,6 +174,24 @@ contract HackathonMunon
     uint256 date_now = now;
     hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen, image_hash, _name, 0, date_now, date_now);
     emit HackathonCreation(msg.sender, hackathon_count, image_hash,_name, date_now);
+  }
+
+  function createHackathon(string memory image_hash, string memory _name, uint256 _entry_fee) public
+  {
+    hackathon_count += 1;
+    uint256 date_now = now;
+    entry_fee = _entry_fee;
+    hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen, image_hash, _name, 0, date_now, date_now);
+    emit HackathonCreation(msg.sender, hackathon_count, image_hash,_name, date_now);
+  }
+
+  function setNewEntryFee(
+      uint256 _entry_fee,
+      uint256 hackathon_id
+  ) public isHackathonHost(hackathon_id)
+  {
+    entry_fee = _entry_fee;
+    emit FeeChanged(entry_fee);
   }
 
   function join(
