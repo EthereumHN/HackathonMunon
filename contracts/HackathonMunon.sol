@@ -168,14 +168,6 @@ contract HackathonMunon
   }
 
   // Public methods
-  function createHackathon(string memory image_hash, string memory _name) public
-  {
-    hackathon_count += 1;
-    uint256 date_now = now;
-    hackathons[hackathon_count] = Hackathon(msg.sender, HackathonState.RegistrationOpen, image_hash, _name, 0, date_now, date_now);
-    emit HackathonCreation(msg.sender, hackathon_count, image_hash,_name, date_now);
-  }
-
   function createHackathon(string memory image_hash, string memory _name, uint256 _entry_fee) public
   {
     hackathon_count += 1;
