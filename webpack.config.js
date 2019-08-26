@@ -7,6 +7,8 @@ module.exports = {
       path: true,
       os: true,
       stream: true,
-      buffer: true
+      buffer: true,
+      fs: 'empty',
+      child_process: 'empty'
     }
   }

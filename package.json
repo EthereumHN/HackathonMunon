@@ -31,6 +31,7 @@
   },
   "private": true,
   "dependencies": {
+    "3box": "^1.10.7",
     "@angular-mdc/web": "^1.0.5",
     "@angular/animations": "^7.2.14",
     "@angular/common": "^7.2.14",
