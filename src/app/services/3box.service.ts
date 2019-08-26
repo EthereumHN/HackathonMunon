@@ -8,19 +8,19 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ThreeBox {
 
-  private threeBox = new BehaviorSubject<Threebox>(null);
-  public box$ = this.threeBox.asObservable();
+  private Box = new BehaviorSubject<Threebox>(null);
+  public box$ = this.Box.asObservable();
 
   constructor(@Inject(WEB3) private web3: Web3) {}
 
   /** Get a snapshot of the current box opened */
   public get box(): Threebox {
-    return this.threeBox.getValue();
+    return this.Box.getValue();
   }
 
   /** Set the current box opened and alert components that subscribed to box$ */
   public set box(box: Threebox) {
-    this.threeBox.next(box);
+    this.Box.next(box);
   }
 
   /**

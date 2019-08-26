@@ -36,10 +36,11 @@ export class AccountComponent implements OnInit {
 
   async ngOnInit() {
     // Get the current accounts in our provider
-    const accounts = await this.web3.eth.getAccounts();
-    console.log(accounts);
+
     // Wait to open a box
-    await this.openBox(accounts[0]);
+    const accounts = await this.threebox.getProfile('0x834Cd15FF1001a63EF7D397c8Ccd23520A654c0f');
+    console.log(accounts);
+
 
   }
 

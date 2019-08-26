@@ -14,15 +14,15 @@
       <mdc-icon *ngIf="resolution <= 599" routerLink="/account">person</mdc-icon>
       <mdc-icon *ngIf="resolution >= 599 && !account" routerLink="/account">person</mdc-icon>
     </mdc-top-app-bar-section>
- 
+
   </mdc-top-app-bar-row>
   <mdc-top-app-bar-row *ngIf="resolution <= 599">
     <mdc-top-app-bar-section>
       <mdc-tab-bar fixed align="center" [activeTabIndex]="-1">
         <mdc-tab-scroller>
-          <mdc-tab label="Join" routerLink="/join"></mdc-tab>
-          <mdc-tab label="Rate" routerLink="/rate"></mdc-tab>
-          <mdc-tab label="Cash Out" routerLink="/cashout"></mdc-tab>
+          <mdc-tab label="Join" routerLink="/join"  routerLinkActive="mdc-tab-indicator--active"></mdc-tab>
+          <mdc-tab label="Rate" routerLink="/rate" routerLinkActive="mdc-tab-indicator--active"></mdc-tab>
+          <mdc-tab label="Cash Out" routerLink="/cashout" routerLinkActive="mdc-tab-indicator--active"></mdc-tab>
         </mdc-tab-scroller>
       </mdc-tab-bar>
     </mdc-top-app-bar-section>
@@ -37,15 +37,15 @@
         </mdc-drawer-header>
         <mdc-drawer-content>
           <mdc-list useActivatedClass>
-            <a mdc-list-item routerLink="/join">
+            <a mdc-list-item routerLink="/join" routerLinkActive="mdc-list-item--activated" >
               <mdc-icon mdcListItemGraphic>check</mdc-icon>Join
             </a>
 
-            <a mdc-list-item routerLink="/rate">
+            <a mdc-list-item routerLink="/rate" routerLinkActive="mdc-list-item--activated">
               <mdc-icon mdcListItemGraphic>star</mdc-icon>Rate
             </a>
 
-            <a mdc-list-item routerLink="/cashout">
+            <a mdc-list-item routerLink="/cashout" routerLinkActive="mdc-list-item--activated">
               <mdc-icon mdcListItemGraphic>attach_money</mdc-icon>Cash out
             </a>
 
