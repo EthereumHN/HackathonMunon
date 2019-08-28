@@ -29,11 +29,8 @@ export class ThreeBox {
    * @param options Optional parameters.
    * @returns The threeBox instance for the given address.
    */
-  public openBox(address?: string, options?: BoxOptions): Promise<Threebox> {
-    if (!this.web3.currentProvider) { throw new Error('No web3 provider available'); }
-    if (!address && !this.web3.eth.defaultAccount) { throw new Error('Please provide an address'); }
-    if (address && !this.web3.utils.isAddress(address)) { throw new Error(`This is not a valid address: ${address}`); }
-    return ThreeboxFactory.openBox(
+  public openBox(address?: string, options?: BoxOptions) {
+     ThreeboxFactory.openBox(
       address || this.web3.eth.defaultAccount,
       this.web3.currentProvider,
       options
@@ -51,6 +48,6 @@ export class ThreeBox {
    */
   public getProfile(address: string, options?: GetProfileOptions): Promise<object> {
     if (!this.web3.utils.isAddress(address)) { throw new Error(`This is not a valid address: ${address}`); }
-    return ThreeboxFactory.getProfile(address, options);
+    return ThreeboxFactory.getProfile(address, options + 'esta');
   }
 }

@@ -26,6 +26,8 @@ export class AccountComponent implements OnInit {
    contract.seeAccountInfo().then((value: any) => {
       this.direction = value.originAccount;
       this.balance = value.balance;
+      const accounts = this.threebox.getProfile(this.direction);
+      console.log(accounts);
       this.getImage();
 
     }).catch((error: any) => {
@@ -35,17 +37,12 @@ export class AccountComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // Get the current accounts in our provider
-
-    // Wait to open a box
-    const accounts = await this.threebox.getProfile('0x834Cd15FF1001a63EF7D397c8Ccd23520A654c0f');
-    console.log(accounts);
-
 
   }
 
   /** Open a box and update the current box open in the service */
   public openBox(address?: string) {
+    console.log('Doctor');
     return this.threebox.openBox(address);
   }
 

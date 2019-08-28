@@ -27,7 +27,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buidl;:all": "ng build --prod --aot && firebase deploy"
+    "buidl:all": "ng build --prod --aot && firebase deploy"
   },
   "private": true,
   "dependencies": {
