@@ -1,5 +1,7 @@
 language: node_js
-  - "9"
+
+node_js:  
+  - 9
 
 before_script:
   - npm install -g ganache-cli
