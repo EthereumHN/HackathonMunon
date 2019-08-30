@@ -48,11 +48,9 @@ contract(Hackathon, function(accounts) {
     });
 
     it("...should allow to join a hackathon.", async () => {
-      let amount = web3.utils.toWei("10", "finney");
+      let amount = web3.utils.toWei("0.03", "ether");
       const receipt = await this.hackathonInstance.join(
         1,
-        "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-        "crisgarner",
         {
           from: accounts[1],
           value: amount
@@ -63,33 +61,19 @@ contract(Hackathon, function(accounts) {
         "Registration",
         "should be the Registration event"
       );
-      expect(receipt.logs[0].args.image_hash).to.be.equal(
-        "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-        "logs the hacker image hash"
-      );
-      expect(receipt.logs[0].args.image_hash).to.be.equal(
-        "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-        "logs the hacker nickname"
-      );
-      expect(receipt.logs[0].args.nickname).to.be.equal(
-        "crisgarner",
-        "logs the hacker nickname"
+      expect(receipt.logs[0].args.hackathon_id.toNumber()).to.be.equal(
+        1,
+        "logs the hackathon id"
       );
       expect(receipt.logs[0].args.participant_addr).to.be.equal(
         accounts[1],
         "logs the hacker address"
       );
-      expect(receipt.logs[0].args.hackathon_id.toNumber()).to.be.equal(
-        1,
-        "logs the hackathon id"
-      );
       var revert = false;
       try {
-        amount = web3.utils.toWei("5", "finney");
+        amount = web3.utils.toWei("0.05", "ether");
         await this.hackathonInstance.join(
           1,
-          "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-          "crisgarner",
           {
             from: accounts[2],
             value: amount
@@ -106,8 +90,6 @@ contract(Hackathon, function(accounts) {
         amount = web3.utils.toWei("15", "finney");
         await this.hackathonInstance.join(
           1,
-          "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-          "user1",
           {
             from: accounts[2],
             value: amount
@@ -121,11 +103,9 @@ contract(Hackathon, function(accounts) {
 
       revert = false;
       try {
-        amount = web3.utils.toWei("10", "finney");
+        amount = web3.utils.toWei("0.03", "ether");
         await this.hackathonInstance.join(
           1,
-          "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-          "user1",
           {
             from: accounts[1],
             value: amount
@@ -142,11 +122,9 @@ contract(Hackathon, function(accounts) {
     });
 
     it("...should enable to open review", async () => {
-      let amount = web3.utils.toWei("10", "finney");
+      let amount = web3.utils.toWei("0.03", "ether");
       await this.hackathonInstance.join(
         1,
-        "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-        "user2",
         {
           from: accounts[2],
           value: amount
@@ -154,8 +132,6 @@ contract(Hackathon, function(accounts) {
       );
       await this.hackathonInstance.join(
         1,
-        "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-        "user2",
         {
           from: accounts[9],
           value: amount
@@ -202,8 +178,6 @@ contract(Hackathon, function(accounts) {
       try {
         await this.hackathonInstance.join(
           1,
-          "QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq",
-          "user2",
           {
             from: accounts[3],
             value: amount
