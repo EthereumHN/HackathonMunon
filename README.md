@@ -3,7 +3,7 @@
 ![Logo](https://hackathonmunon.web.app/assets/munon.png)
 
 [![Discord](https://img.shields.io/discord/593256013008994305.svg?label=Discord&logo=discord&color=7289DA&labelColor=2C2F33)](https://discord.gg/XUVGbS)
-[![Travis](https://img.shields.io/travis/buidl-honduras/HackathonMunon.svg?logo=travis)](https://travis-ci.org/buidl-honduras/HackathonMunon)
+[![Travis](https://img.shields.io/travis/BuidlHonduras/HackathonMunon.svg?logo=travis)](https://travis-ci.org/BuidlHonduras/HackathonMunon)
 
 # Hackathon Muñón: Dapp Edition
 
