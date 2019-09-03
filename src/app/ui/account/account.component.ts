@@ -16,7 +16,8 @@ export class AccountComponent implements OnInit {
   direction;
   balance: string;
   data;
-
+  profile;
+  url;
   constructor(
     @Inject(WEB3) private web3,
     private threebox: ThreeBox,
@@ -26,7 +27,11 @@ export class AccountComponent implements OnInit {
    contract.seeAccountInfo().then((value: any) => {
       this.direction = value.originAccount;
       this.balance = value.balance;
-      this.threebox.getProfile(this.direction).then((response) => console.log(response));
+      this.profile = this.threebox.getProfile(this.direction).then(response => {
+      this.profile = response;
+      this.url = (this.profile.image[0].contentUrl['/']);
+      }
+      );
       this.getImage();
     }).catch((error: any) => {
       contract.failure('Could\'t get the account data, please check if metamask is running correctly and refresh the page');
@@ -35,8 +40,9 @@ export class AccountComponent implements OnInit {
   }
 
   async ngOnInit() {
-  this.threebox.getPublicProfile(this.direction).then((response) => console.log(response));
-  }
+ // this.threebox.getPublicProfile(this.direction).then((response) => console.log(response));
+
+}
 
 
 
