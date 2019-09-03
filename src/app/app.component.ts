@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ContractService} from './services/contract/contract.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,8 +7,7 @@ import { ContractService} from './services/contract/contract.service';
 
 export class AppComponent implements OnInit {
 acount;
-  constructor( private contract: ContractService
-    ) {}
+  constructor() {}
 
    ngOnInit() {
   }
