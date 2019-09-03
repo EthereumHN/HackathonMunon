@@ -13,41 +13,27 @@ export class ThreeBox {
 
   constructor(@Inject(WEB3) private web3: Web3) {}
 
-  /** Get a snapshot of the current box opened */
   public get box(): Threebox {
     return this.Box.getValue();
   }
 
-  /** Set the current box opened and alert components that subscribed to box$ */
   public set box(box: Threebox) {
     this.Box.next(box);
   }
 
-  /**
-   * Opens the user space associated with the given address.
-   * @param address An ethereum address.
-   * @param options Optional parameters.
-   * @returns The threeBox instance for the given address.
-   */
-  public openBox(address?: string, options?: BoxOptions) {
-     ThreeboxFactory.openBox(
-      address || this.web3.eth.defaultAccount,
-      this.web3.currentProvider,
-      options
-    ).then(box => {
-      this.box = box;
-      return box;
-    });
-  }
 
-  /**
-   * Get the public profile of a given address.
-   * @param address An Ethereum address.
-   * @param options Optional parameters.
-   * @returns A json object with the profile for the given address.
-   */
   public getProfile(address: string, options?: GetProfileOptions): Promise<object> {
     if (!this.web3.utils.isAddress(address)) { throw new Error(`This is not a valid address: ${address}`); }
-    return ThreeboxFactory.getProfile(address, options + 'esta');
+    return ThreeboxFactory.getProfile(address, options );
   }
+
+
+
+  public getPublicProfile(address: string, options?: GetProfileOptions): Promise<object> {
+    if (!this.web3.utils.isAddress(address)) { throw new Error(`This is not a valid address: ${address}`); }
+    return ThreeboxFactory.box.public.get(address, options );
+  }
+
+
+
 }
