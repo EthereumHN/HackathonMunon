@@ -23,6 +23,8 @@
   border: 3px solid #dc3545;
   border-radius: 50%;
   background-position: center center;
+  width: 170px;
+  height: 170px;
 }
 
 .profileInfura{
@@ -30,4 +32,11 @@
   border-radius: 50%;
   width: 20%;
   background-position: center center;
+  width: 170px;
+  height: 170px;
+}
+.center{
+  align-content: center;
+  align-items: center;
+  align-self: center;
 }

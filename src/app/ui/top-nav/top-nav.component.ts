@@ -3,6 +3,7 @@ import { ContractService } from './../../services/contract/contract.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Identicon } from '../../services/identicon';
 import { Md5 } from 'ts-md5/dist/md5';
+import { ThreeBox } from '../../services/3box.service';
 
 @Component({
   selector: 'app-top-nav',
@@ -14,11 +15,24 @@ export class TopNavComponent implements OnInit {
   resolution;
   account_image;
   account;
-  constructor(private contract: ContractService, private sanitizer: DomSanitizer) {
+  profile;
+  name;
+  url;
+  constructor(
+    private contract: ContractService,
+    private sanitizer: DomSanitizer,
+    private threebox: ThreeBox,
+    ) {
     contract.seeAccountInfo().then((value: any) => {
        this.direction = value.originAccount;
        this.resolution = window.innerWidth;
        this.account = this.direction.slice(0, 5);
+       this.profile = this.threebox.getProfile(this.direction).then(response => {
+       this.profile = response;
+       this.name = this.profile.name.slice(0, 7);
+       this.url = (this.profile.image[0].contentUrl['/']);
+       }
+       );
        this.getImage();
         }).catch((error: any) => {
        contract.failure('Could\'t get the account data, please check if metamask is running correctly and refresh the page');
