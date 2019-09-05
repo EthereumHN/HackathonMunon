@@ -8,9 +8,11 @@
     <mdc-top-app-bar-section align="end">
         <button mdc-button unelevated
             routerLink="/account"  *ngIf="resolution >= 600 && account">
-            <img [src]="account_image" class="profile" />
-            <span mdcButtonLabel>{{account}}...</span>
-        </button>
+            <img *ngIf="!url" [src]="account_image" class="profile" />
+            <img *ngIf="url"src='https://ipfs.infura.io/ipfs/{{ url }}'class="profileInfura" />
+            <span *ngIf="!url" mdcButtonLabel>{{account}}...</span>
+            <span *ngIf="url" mdcButtonLabel>{{ name }}...</span>
+          </button>
       <mdc-icon *ngIf="resolution <= 599" routerLink="/account">person</mdc-icon>
       <mdc-icon *ngIf="resolution >= 599 && !account" routerLink="/account">person</mdc-icon>
     </mdc-top-app-bar-section>
