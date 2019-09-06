@@ -18,8 +18,11 @@ export class ContractService {
   private accounts: string[];
   public accountsObservable = new Subject<string[]>();
   public success: boolean;
+  deployed: any;
   constructor(private snackbar: MdcSnackbar) {
-     if (typeof window.web3 === 'undefined' || (typeof window.ethereum !== 'undefined')) {
+    this.deployed = hackathonMunon.networks;
+    console.log(this.deployed);
+    if (typeof window.web3 === 'undefined' || (typeof window.ethereum !== 'undefined')) {
       this.web3Provider = window.ethereum || window.web3;
       console.log(this.web3Provider);
       window.web3 = new Web3(this.web3Provider);
@@ -34,7 +37,7 @@ export class ContractService {
    //   this.web3Provider = new Web3(new Web3.providers.HttpProvider('https://rinkeby.infura.io/v3/fcbcb2a5dc574c33be6baa5d697bcf20'));
    // Cambiarlo con la private key propia de infura.io
     }
-     try {
+    try {
       this.web3Provider.enable();
       this.success = true;
       console.log('web3 enabled');
@@ -68,7 +71,6 @@ export class ContractService {
   }
 
    refreshAccounts() {
-
     window.web3.eth.getAccounts((err, accs) => {
       console.log('Refreshing accounts');
       if (err === true) {
@@ -94,31 +96,10 @@ export class ContractService {
    });
   }
 
-  trasnferEther(originAccount, destinyAccount, amount) {
-    const that = this;
+  getParticipant() {
 
-    return new Promise((resolve, reject) => {
-      const hackathonMunonContract = contract(hackathonMunon);
-      hackathonMunonContract.setProvider(that.web3Provider);
-
-      hackathonMunonContract.deployed().then((instance) => {
-          return instance.nuevaTransaccion(
-            destinyAccount,
-            {
-              from: originAccount,
-              value: window.web3.utils.toWei(amount, 'ether')
-            });
-        }).then((status) => {
-          if (status) {
-            return resolve({status: true});
-          }
-        }).catch((error) => {
-          console.log(error);
-
-          return reject('Error transfering Ether');
-        });
-    });
   }
+
 
   createHackathonService(originAccount) {
     const that = this;
