@@ -41,7 +41,7 @@
     "@angular/platform-browser": "^7.2.14",
     "@angular/platform-browser-dynamic": "^7.2.14",
     "@angular/router": "^7.2.14",
-    "async": "^3.0.1",
+    "async": "^3.2.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "core-js": "^2.5.4",
